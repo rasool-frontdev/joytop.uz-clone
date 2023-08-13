@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Input from "../components/input";
 import { signInWithGoogle } from "../firebase";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [phone, setPhone] = useState("");
@@ -26,11 +27,11 @@ const Login = () => {
     // }
   };
   return (
-    <div className="dashboard">
+    <div className="">
       {/* <button onClick={signInWithGoogle}>Sing in with Google</button> */}
       <div className="mt-24 flex justify-center items-center">
         <div className="">
-          <form className="">
+          <form>
             {/* <ValidationError /> */}
             <Input
               label={"Enter your phone number"}
@@ -52,6 +53,15 @@ const Login = () => {
               {isLoggedIn ? "Loading..." : "Sign in"}
             </button>
           </form>
+          <p className="text-center mt-6 text-[#ff7e47]">
+            Forgot your password?
+          </p>
+          <div className="text-center">
+            <Link to="/register" className="text-[#ff7e47]">
+              Sign up
+            </Link>{" "}
+            if you do not have account yet.
+          </div>
         </div>
       </div>
     </div>

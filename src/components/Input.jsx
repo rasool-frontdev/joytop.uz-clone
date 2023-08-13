@@ -11,7 +11,7 @@ const Input = ({ label, state, setState, type = "text" }) => {
       </label>
       <input
         type={type}
-        className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-6 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
+        className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
         placeholder={label}
         value={state}
         onChange={(e) => setState(e.target.value)}
