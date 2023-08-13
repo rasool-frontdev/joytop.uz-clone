@@ -7,7 +7,7 @@ export const homeCategories = [
     icon: "http://joytop.mbs-edu.uz/static/media/dacha-icon.58816c25.svg",
   },
   {
-    id: "apartment",
+    id: "apartments",
     nameUz: "Apartment",
     img: "http://joytop.mbs-edu.uz/static/media/home.9ca6dd0b.jpg",
     bg: "bg-[#426bbf]",
