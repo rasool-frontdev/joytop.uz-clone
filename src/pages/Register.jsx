@@ -67,10 +67,10 @@ const Register = () => {
         // console.log(confirmationResult);
         window.confirmationResult = confirmationResult;
         setToggle(true);
-        console.log("Success sended otp code");
+        toast.success("Success sended otp code");
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("Error: " + error.message);
       });
   };
 
