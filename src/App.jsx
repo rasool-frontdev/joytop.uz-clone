@@ -12,7 +12,6 @@ const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
 
 const NotFound = lazy(() => import("./pages/NotFound"));
-
 function App() {
   return (
     <>
