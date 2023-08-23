@@ -2,8 +2,24 @@ import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
+import { checkUserAction } from "../slice/auth";
+import { useDispatch } from "react-redux";
 
 const Layout = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const checkUserAuth = onAuthStateChanged(auth, (currentUser) => {
+      // console.log(currentUser);
+      dispatch(checkUserAction(currentUser.phoneNumber));
+    });
+    return () => {
+      checkUserAuth();
+    };
+  }, []);
   return (
     <>
       <div className="">

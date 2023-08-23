@@ -1,31 +1,29 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Input from "../components/input";
-import { auth } from "../firebase.js";
-import {
-  getAuth,
-  signInWithPhoneNumber,
-  RecaptchaVerifier,
-} from "firebase/auth";
+import { auth, db } from "../firebase.js";
+import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
-import { addDoc } from "firebase/firestore";
+import "react-toastify/dist/ReactToastify.css";
+import { doc, setDoc } from "firebase/firestore";
+import { useDispatch } from "react-redux";
+import { registerUserSuccess } from "../slice/auth.js";
+
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const formRef = useRef();
   const otpRef = useRef();
-  // const [firstname, setFirtsname] = useState("");
-  // const [lastname, setLastname] = useState("");
-  // const [phone, setPhone] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  // const [code, setCode] = useState("");
-  // const [loading, setLoading] = useState(false);
-  // const dispatch = useDispatch();
-  // const { isLoggedIn } = useSelector((state) => state.auth);
   const [toggle, setToggle] = useState(false);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [userData, setUserData] = useState(null);
+
+  function getDate() {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    return `${date}/${month}/${year}`;
+  }
 
   const onChaptchVerify = () => {
     if (!window.recaptchaVerifier) {
@@ -82,18 +80,30 @@ const Register = () => {
   const onOTPVerify = async (e) => {
     e.preventDefault();
     const code = otpRef?.current[0].value;
-    console.log(code);
     window.confirmationResult
       .confirm(code)
       .then(async (result) => {
-        await addDoc();
-        toast.success("Successfully registered");
-        await result.user.updateProfile({
-          displayName: userData.firstName,
-        });
+        const ref = doc(db, "usersData", result.user.uid);
+        const docRef = await setDoc(ref, {
+          userId: result.user.uid,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          password: userData.password,
+          dataCreated: getDate(),
+          phoneNumber: userData.phone,
+          verifyCode: code,
+        })
+          .then((res) => {
+            dispatch(registerUserSuccess(result.user));
+            toast.success("Successfully registered user");
+            console.log(res);
+          })
+          .catch((err) => {
+            toast.error("Somthing went wrong!");
+            console.log(err.message);
+          });
         setUserData(result.user);
         navigate("/");
-        console.log(result.user);
       })
       .catch((error) => {
         toast.error("Error: " + error.message);
