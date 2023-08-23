@@ -5,23 +5,28 @@ import Footer from "../components/Footer";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
-import { checkUserAction } from "../slice/auth";
 import { useDispatch } from "react-redux";
+import { userLoggedIn, userSignOut } from "../slice/auth";
+import { ToastContainer } from "react-toastify";
 
 const Layout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const checkUserAuth = onAuthStateChanged(auth, (currentUser) => {
-      // console.log(currentUser);
-      dispatch(checkUserAction(currentUser.phoneNumber));
+      dispatch(
+        currentUser?.phoneNumber
+          ? userLoggedIn(currentUser?.phoneNumber)
+          : userSignOut({})
+      );
     });
     return () => {
       checkUserAuth();
     };
-  }, []);
+  }, [dispatch]);
   return (
     <>
+      <ToastContainer />
       <div className="">
         <Suspense fallback={<h1>Loading...</h1>}>
           <Navbar />

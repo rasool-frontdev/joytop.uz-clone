@@ -1,13 +1,32 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { BiChevronDown, BiX } from "react-icons/bi";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import { toast } from "react-toastify";
+import { userSignOut } from "../slice/auth";
 const Navbar = () => {
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  const isLoggedIn = false;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const isLoggedIn = false;
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const [toggleNav, setToggleNav] = useState(false);
   const [toggleLang, setToggleLang] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      dispatch(userSignOut({}));
+      toast.success("Successfully signout");
+      navigate("/login");
+    } catch (error) {
+      toast.error("Something went wrong!");
+      console.log(error.response.message);
+      console.log(error.message);
+    }
+  };
   return (
     <>
       <div className="fixed w-full top-0 z-[999] opacity-1 bg-[#fff]">
@@ -48,8 +67,7 @@ const Navbar = () => {
                       <>
                         <NavLink
                           className="text-[14px] border-[2px] border-[#ff7e47] rounded-[6px] px-[15px] py-[5px] text-[#ff7e47]"
-                          // onClick={logoutUser}
-                          to="/login">
+                          onClick={handleLogout}>
                           Sign out
                         </NavLink>
                         <NavLink

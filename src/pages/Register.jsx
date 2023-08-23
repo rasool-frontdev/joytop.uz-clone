@@ -2,8 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase.js";
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { doc, setDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { registerUserSuccess } from "../slice/auth.js";
@@ -114,7 +113,6 @@ const Register = () => {
   return (
     <>
       <div id="recaptcha-container" className="recaptcha-container"></div>
-      <ToastContainer />
       <div className="mt-[-16px] flex justify-center items-center">
         <div>
           {toggle ? (
