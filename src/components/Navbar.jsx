@@ -1,16 +1,21 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { BiChevronDown, BiX } from "react-icons/bi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
 import { userSignOut } from "../slice/auth";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
+import languages from "../../public/locales/languages";
+
 const Navbar = () => {
+  const { t, i18n } = useTranslation();
+  const [selectedLang, setSelectedLang] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const isLoggedIn = false;
   const { isLoggedIn } = useSelector((state) => state.auth);
   const [toggleNav, setToggleNav] = useState(false);
   const [toggleLang, setToggleLang] = useState(false);
@@ -18,6 +23,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      localStorage.removeItem("userData");
       dispatch(userSignOut({}));
       toast.success("Successfully signout");
       navigate("/login");
@@ -26,6 +32,18 @@ const Navbar = () => {
       console.log(error.response.message);
       console.log(error.message);
     }
+  };
+
+  useEffect(() => {
+    const currentLanguage = localStorage.getItem("I18N_LANGUAGE");
+    setSelectedLang(currentLanguage);
+  }, []);
+
+  const changeLanguageAction = (lang) => {
+    //set language as i18n
+    i18n.changeLanguage(lang);
+    localStorage.setItem("I18N_LANGUAGE", lang);
+    setSelectedLang(lang);
   };
   return (
     <>
@@ -44,7 +62,7 @@ const Navbar = () => {
                 <div className="flex items-center">
                   <NavLink to="login" className="mr-4">
                     <button className="px-4 h-[33px] text-[14px] border-[2px] border-[#ff7e47] rounded-[6px]  text-[#ff7e47]">
-                      About Us
+                      {t("About Us")}
                     </button>
                   </NavLink>
                   <div
@@ -94,20 +112,27 @@ const Navbar = () => {
                       <button
                         onClick={() => setToggleLang((prev) => !prev)}
                         className="py-2 pl-[11px] pr-[8px] h-[33px] text-[14px] border-[1px] border-[#dadada] rounded-[6px]  text-[#8E8E93] flex items-center gap-[19px] focus:border-[#ff7e47]">
-                        en
+                        {selectedLang}
                         <BiChevronDown />
                       </button>
                       {toggleLang && (
                         <div className="absolute top-[33px] left-0 bg-white border w-[70px] rounded-md">
-                          <div className="px-2 py-3 text-left text-base font-normal hover:bg-[#f2faff] cursor-pointer">
-                            uz
-                          </div>
-                          <div className="px-2 py-3 text-left text-base font-normal hover:bg-[#f2faff] cursor-pointer">
+                          {Object.keys(languages).map((key) => (
+                            <div
+                              key={key}
+                              onClick={() => changeLanguageAction(key)}
+                              className={`${
+                                selectedLang === key ? "active" : "none"
+                              } px-2 py-3 text-left text-base font-normal hover:bg-[#f2faff] cursor-pointer`}>
+                              {key}
+                            </div>
+                          ))}
+                          {/* <div className="px-2 py-3 text-left text-base font-normal hover:bg-[#f2faff] cursor-pointer">
                             ru
                           </div>
                           <div className="px-2 py-3 text-left text-base font-normal hover:bg-[#f2faff] cursor-pointer">
                             en
-                          </div>
+                          </div> */}
                         </div>
                       )}
                     </div>

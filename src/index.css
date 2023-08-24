@@ -8,13 +8,32 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Rubik", sans-serif;
+  text-decoration: none;
+  list-style-type: none;
 }
 
 .container {
   margin: 0 auto;
   max-width: 1140px;
 }
+input:hover,
+input:focus,
+select:hover,
+select:focus,
+.phone-input:focus,
+.phone-input:hover {
+  border: 1px solid #ff7e47;
+  outline: none;
+}
 
+.phone-input input {
+  border: none !important;
+  outline: none !important;
+}
+
+.active {
+  font-weight: 600;
+}
 ::-webkit-scrollbar {
   width: 5px;
 }
