@@ -25,24 +25,24 @@ const Navbar = () => {
       await signOut(auth);
       localStorage.removeItem("userData");
       dispatch(userSignOut({}));
-      toast.success("Successfully signout");
+      toast.success(t("Successfully sign out"));
       navigate("/login");
     } catch (error) {
-      toast.error("Something went wrong!");
+      toast.error(t("Something went wrong!"));
       console.log(error.response.message);
       console.log(error.message);
     }
   };
 
   useEffect(() => {
-    const currentLanguage = localStorage.getItem("I18N_LANGUAGE");
+    const currentLanguage = localStorage.getItem("LANGUAGE");
     setSelectedLang(currentLanguage);
   }, []);
 
   const changeLanguageAction = (lang) => {
     //set language as i18n
     i18n.changeLanguage(lang);
-    localStorage.setItem("I18N_LANGUAGE", lang);
+    localStorage.setItem("LANGUAGE", lang);
     setSelectedLang(lang);
     setToggleLang(false);
   };
@@ -79,7 +79,7 @@ const Navbar = () => {
                     <NavLink
                       // onClick={() => setToggleBtn((prev) => !prev)}
                       className="text-[14px] outline-none font-bold px-[15px] py-[5px] rounded-[6px] bg-[#ff7e47] hover:bg-[#ff9668] text-[#ffeacb] ">
-                      Add Point
+                      {t("Add Point")}
                     </NavLink>
 
                     {isLoggedIn ? (
@@ -87,24 +87,24 @@ const Navbar = () => {
                         <NavLink
                           className="text-[14px] border-[2px] border-[#ff7e47] rounded-[6px] px-[15px] py-[5px] text-[#ff7e47]"
                           onClick={handleLogout}>
-                          Sign out
+                          {t("Sign out")}
                         </NavLink>
                         <NavLink
-                          to="profile"
+                          to="/profile"
                           className="text-[14px] border-[2px] border-[#ff7e47] rounded-[6px] px-[15px] py-[5px] text-[#ff7e47]">
-                          Profile
+                          {t("Profile")}
                         </NavLink>
                       </>
                     ) : (
                       <>
                         <NavLink to="login" className="">
                           <button className="px-4 h-[33px] text-[14px] border-[2px] border-[#ff7e47] rounded-[6px]  text-[#ff7e47]">
-                            Sign in
+                            {t("Sign in")}
                           </button>
                         </NavLink>
                         <NavLink to="register" className="">
                           <button className="px-4 h-[33px] text-[14px] border-[2px] border-[#ff7e47] rounded-[6px]  text-[#ff7e47]">
-                            Sign up
+                            {t("Sign up")}
                           </button>
                         </NavLink>
                       </>
@@ -123,17 +123,13 @@ const Navbar = () => {
                               key={key}
                               onClick={() => changeLanguageAction(key)}
                               className={`${
-                                selectedLang === key ? "active" : "none"
+                                selectedLang === key
+                                  ? "active-language"
+                                  : "none"
                               } px-2 py-3 text-left text-base font-normal hover:bg-[#f2faff] cursor-pointer rounded-md`}>
                               {key}
                             </div>
                           ))}
-                          {/* <div className="px-2 py-3 text-left text-base font-normal hover:bg-[#f2faff] cursor-pointer">
-                            ru
-                          </div>
-                          <div className="px-2 py-3 text-left text-base font-normal hover:bg-[#f2faff] cursor-pointer">
-                            en
-                          </div> */}
                         </div>
                       )}
                     </div>
@@ -148,7 +144,7 @@ const Navbar = () => {
         <div className="w-full h-full bg-[#BEBFC2] fixed top-0 left-0 z-[100]">
           <div className="w-[90%] h-full mt-[86px] bg-[#fff] right-0 top-0 absolute">
             <div className="flex justify-between mt-5 mx-5 mb-6">
-              <h1 className="text-base font-semibold ">Menu</h1>
+              <h1 className="text-base font-semibold ">{t("Menu")}</h1>
               <BiX
                 size={20}
                 color="#575757"
@@ -156,9 +152,9 @@ const Navbar = () => {
               />
             </div>
             <div className="text-[#565656] my-30 mx-4">
-              <h1 className="mb-6 text-right text-base">Add Point</h1>
-              <h1 className="mb-6 text-right text-base">Profile</h1>
-              <h1 className="mb-6 text-right text-base">Sign out</h1>
+              <h1 className="mb-6 text-right text-base">{t("Add Point")}</h1>
+              <h1 className="mb-6 text-right text-base">{t("Profile")}</h1>
+              <h1 className="mb-6 text-right text-base">{t("Sign out")}</h1>
             </div>
           </div>
         </div>

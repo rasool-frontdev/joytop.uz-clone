@@ -13,6 +13,7 @@ const Layout = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const checkUserAuth = onAuthStateChanged(auth, (currentUser) => {
+      console.log(currentUser);
       dispatch(
         currentUser?.phoneNumber
           ? userLoggedIn(currentUser?.phoneNumber)
@@ -36,7 +37,7 @@ const Layout = () => {
     <>
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

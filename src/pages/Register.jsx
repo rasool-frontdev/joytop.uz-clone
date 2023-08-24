@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase.js";
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { toast } from "react-toastify";
@@ -11,8 +11,10 @@ import {
   registerUserSuccess,
 } from "../slice/auth.js";
 import { AiOutlineLoading } from "react-icons/ai";
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.auth);
@@ -57,15 +59,15 @@ const Register = () => {
     const confirmPassword = formRef?.current[4].value;
 
     if (firstName.length < 2 && lastName.length < 2) {
-      toast.warning("Plese enter name or surname than 2 characters!");
+      toast.warning(t("Plese enter name or surname than 2 characters!"));
     } else if (phone.length !== 9) {
       toast.warning(
-        "Please enter the correct phone number! Should be 9 characters"
+        t("Please enter the correct phone number! Should be 9 characters")
       );
     } else if (password.length < 5) {
-      toast.warning("Please enter password more than 5 characters!");
+      toast.warning(t("Please enter password more than 5 characters!"));
     } else if (password !== confirmPassword) {
-      toast.warning("Password does not match. Please re-enter!");
+      toast.warning(t("Password does not match. Please re-enter!"));
     } else {
       onChaptchVerify();
       setBtnDisabled(false);
@@ -87,7 +89,8 @@ const Register = () => {
           window.confirmationResult = confirmationResult;
           dispatch(registerUserFailure());
           setToggle(true);
-          toast.success("Success sended otp code");
+          toast.success(t("Success sended code!"));
+          toast.warn(t("Please check your message!"));
         })
         .catch((error) => {
           dispatch(registerUserFailure());
@@ -119,7 +122,7 @@ const Register = () => {
               lastName: userData?.lastName,
               dataCreated: userData?.dataCreated,
             });
-            toast.success("Successfully registered user");
+            toast.success(t("Successfully registered user"));
             console.log(res);
           })
           .catch((error) => {
@@ -148,12 +151,12 @@ const Register = () => {
                 <label
                   htmlFor="name"
                   className="mb-[5px]  text-[#575757] text-4 font-normal">
-                  Введите код из SMS
+                  {t("Enter code from SMS")}
                 </label>
                 <input
                   type="text"
                   className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
-                  placeholder="Введите код из SMS"
+                  placeholder={t("Enter code from SMS")}
                 />
                 <button
                   className={`w-full  ${
@@ -164,22 +167,22 @@ const Register = () => {
                   {isLoading ? (
                     <AiOutlineLoading className="animate-spin" size={25} />
                   ) : (
-                    "Подвердить"
+                    t("Confirm")
                   )}
                 </button>
-                <p className="text-center mt-4">Код отправлен на номер</p>
-
+                <p className="text-center mt-4">
+                  {t("Code sent to the number ")}
+                </p>
                 <p className="text-center">+{userData.phone}</p>
-
                 <p
                   // onClick={resendVerificationCode}
                   className="text-center mt-4 text-backBtn cursor-pointer">
-                  Отправить занова
+                  {t("Send again")}
                 </p>
                 <p
                   onClick={() => navigate("/register")}
                   className="text-center mt-2 cursor-pointer text-backBtn">
-                  Другой номер
+                  {t("Another number")}
                 </p>
               </form>
             </>
@@ -190,31 +193,31 @@ const Register = () => {
                   <label
                     htmlFor="name"
                     className="mb-[5px]  text-[#575757] text-4 font-normal">
-                    Name
+                    {t("Name")}
                   </label>
                   <input
                     type="text"
                     className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
-                    placeholder="Name"
+                    placeholder={t("Name")}
                   />
                 </div>
                 <div className="mb-[8px] flex flex-col w-[300px]">
                   <label
                     htmlFor="surname"
                     className="mb-[5px]  text-[#575757] text-4 font-normal">
-                    Surname
+                    {t("Surname")}
                   </label>
                   <input
                     type="text"
                     className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
-                    placeholder="Surname"
+                    placeholder={t("Surname")}
                   />
                 </div>
                 <div className="mb-[8px] flex flex-col w-[300px]">
                   <label
                     htmlFor="phone"
                     className="mb-[5px]  text-[#575757] text-4 font-normal">
-                    Enter your phone number
+                    {t("Enter your phone number")}
                   </label>
                   <div className="phone-input text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea] flex items-center h-[50px]">
                     <span className="flex items-center px-3 h-full text-[14px] bg-[#e5e5ea50]">
@@ -223,7 +226,7 @@ const Register = () => {
                     <input
                       type="phone"
                       className="w-[70%] font-normal px-[11px] py-[7px] text-[14px] outline-none"
-                      placeholder="Enter your phone number"
+                      placeholder={t("Enter your phone number")}
                     />
                   </div>
                 </div>
@@ -231,24 +234,24 @@ const Register = () => {
                   <label
                     htmlFor="passwod"
                     className="mb-[5px]  text-[#575757] text-4 font-normal">
-                    Choose Password
+                    {t("Choose Password")}
                   </label>
                   <input
                     type="password"
                     className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
-                    placeholder="Choose Password"
+                    placeholder={t("Choose Password")}
                   />
                 </div>
                 <div className="mb-[8px] flex flex-col w-[300px]">
                   <label
                     htmlFor="confirm"
                     className="mb-[5px]  text-[#575757] text-4 font-normal">
-                    Confirm Password
+                    {t("Verify Password")}
                   </label>
                   <input
                     type="password"
                     className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
-                    placeholder="Confirm Password"
+                    placeholder={t("Verify Password")}
                   />
                 </div>
                 <button
@@ -260,7 +263,7 @@ const Register = () => {
                   {isLoading ? (
                     <AiOutlineLoading className="animate-spin" size={25} />
                   ) : (
-                    "Sign up"
+                    t("Sign up")
                   )}
                 </button>
               </form>

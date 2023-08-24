@@ -20,9 +20,9 @@ const resources = {
   },
 };
 
-const language = localStorage.getItem("I18N_LANGUAGE");
+const language = localStorage.getItem("LANGUAGE");
 if (!language) {
-  localStorage.setItem("I18N_LANGUAGE", "uz");
+  localStorage.setItem("LANGUAGE", "uz");
 }
 
 i18n
@@ -31,7 +31,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: localStorage.getItem("I18N_LANGUAGE") || "uz",
+    lng: localStorage.getItem("LANGUAGE") || "uz",
     fallbackLng: "uz", // use en if detected lng is not available
 
     keySeparator: false, // we do not use keys in form messages.welcome

@@ -31,9 +31,11 @@ select:focus,
   outline: none !important;
 }
 
-.active {
-  font-weight: 600;
+.active-language {
+  font-weight: 500;
+  background: #eef8fe;
 }
+
 ::-webkit-scrollbar {
   width: 5px;
 }
