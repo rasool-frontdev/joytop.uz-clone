@@ -44,6 +44,7 @@ const Navbar = () => {
     i18n.changeLanguage(lang);
     localStorage.setItem("I18N_LANGUAGE", lang);
     setSelectedLang(lang);
+    setToggleLang(false);
   };
   return (
     <>
@@ -123,7 +124,7 @@ const Navbar = () => {
                               onClick={() => changeLanguageAction(key)}
                               className={`${
                                 selectedLang === key ? "active" : "none"
-                              } px-2 py-3 text-left text-base font-normal hover:bg-[#f2faff] cursor-pointer`}>
+                              } px-2 py-3 text-left text-base font-normal hover:bg-[#f2faff] cursor-pointer rounded-md`}>
                               {key}
                             </div>
                           ))}
