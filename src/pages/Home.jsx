@@ -1,6 +1,7 @@
+import { lazy } from "react";
 import { useTranslation } from "react-i18next";
-import Helmet from "../components/Helmet";
-import HomeCards from "../components/HomeCards";
+const HomeCards = lazy(() => import("../components/HomeCards"));
+const Helmet = lazy(() => import("../components/Helmet"));
 
 const Home = () => {
   const { t, i18n } = useTranslation();
