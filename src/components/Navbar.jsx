@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { userSignOut } from "../slice/auth";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n";
-import languages from "../../public/locales/languages";
+import languages from "../locales/languages";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();

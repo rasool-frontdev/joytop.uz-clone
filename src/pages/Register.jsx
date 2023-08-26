@@ -76,8 +76,10 @@ const Register = () => {
         firstName,
         lastName,
         phone,
-        password,
-        confirmPassword,
+        dataCreated: getDate(),
+
+        // password,
+        // confirmPassword,
       };
       setUserData(user);
 
@@ -106,6 +108,7 @@ const Register = () => {
     window.confirmationResult
       .confirm(code)
       .then(async (result) => {
+        dispatch(registerUserStart());
         const ref = doc(db, "usersData", result.user.uid);
         const docRef = await setDoc(ref, {
           userId: result.user?.uid,
@@ -114,24 +117,27 @@ const Register = () => {
           password: userData?.password,
           dataCreated: getDate(),
           phoneNumber: userData?.phone,
-          verifyCode: code,
         })
           .then((res) => {
-            localStorage.setItem("userData", {
-              firstName: userData?.firstName,
-              lastName: userData?.lastName,
-              dataCreated: userData?.dataCreated,
-            });
+            dispatch(registerUserStart());
+            localStorage.setItem(
+              "userData",
+              JSON.stringify({
+                firstName: userData?.firstName,
+                lastName: userData?.lastName,
+                dataCreated: userData?.dataCreated,
+              })
+            );
             toast.success(t("Successfully registered user"));
-            console.log(res);
           })
           .catch((error) => {
             dispatch(registerUserFailure());
             toast.error(error?.message);
             console.log(error?.message);
           });
-        dispatch(registerUserSuccess(userData));
+        dispatch(registerUserStart());
         setUserData(result?.user);
+        dispatch(registerUserSuccess(userData));
         navigate("/");
       })
       .catch((error) => {
@@ -173,7 +179,7 @@ const Register = () => {
                 <p className="text-center mt-4">
                   {t("Code sent to the number ")}
                 </p>
-                <p className="text-center">+{userData.phone}</p>
+                <p className="text-center">+998 {userData.phone}</p>
                 <p
                   // onClick={resendVerificationCode}
                   className="text-center mt-4 text-backBtn cursor-pointer">
@@ -269,8 +275,8 @@ const Register = () => {
               </form>
             </>
           )}
-          <div className="recaptcha-container"></div>
         </div>
+        <div className="recaptcha-container"></div>
       </div>
     </>
   );

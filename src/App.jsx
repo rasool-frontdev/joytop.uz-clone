@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import "react-toastify/dist/ReactToastify.css";
+
 const Home = lazy(() => import("./pages/Home"));
 const Villas = lazy(() => import("./pages/Villas"));
 const Apartments = lazy(() => import("./pages/Apartments"));

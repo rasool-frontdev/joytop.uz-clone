@@ -3,9 +3,9 @@ import Backend from "i18next-http-backend";
 import detector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
-import translationENG from "../public/locales/en/translation.json";
-import translationRUS from "../public/locales/ru/translation.json";
-import translationUZB from "../public/locales/uz/translation.json";
+import translationENG from "./locales/en/translation.json";
+import translationRUS from "./locales/ru/translation.json";
+import translationUZB from "./locales/uz/translation.json";
 
 // the translations
 const resources = {
