@@ -93,9 +93,10 @@ const AddVillas = () => {
       </h1>
       <form ref={formRef} onSubmit={handlerAddPoint}>
         <div className="pt-12 grid grid-cols-2 gap-x-8">
-          <div className="flex items-center justify-center">
+          {/* Uploade Img */}
+          <div className="flex items-center justify-center h-[300px]">
             <label
-              className="h-[300px] px-3 py-2 w-full border border-dashed rounded-md hover:border-[#426BFF] hover:bg-[#e5e5e5] border-[#e5e5e5] cursor-pointer flex flex-wrap"
+              className="h-full px-3 py-2 w-full border border-dashed rounded-md hover:border-[#426BFF] hover:bg-[#e5e5e5] border-[#e5e5e5] cursor-pointer flex flex-wrap"
               htmlFor="upload-file">
               <div className="flex flex-col text-center justify-center items-center px-4">
                 <img src={uploadImg} alt="upload image" />
@@ -123,9 +124,30 @@ const AddVillas = () => {
               />
             </label>
           </div>
+          {/* Category */}
           <div>
-            <h1 className="text-2xl text-[#444]">{t("Price")}</h1>
-            <div className="grid grid-cols-2 gap-x-8 pt-2">
+            <div className="">
+              <h1 className="text-2xl text-[#444]">{t("Category")}</h1>
+              <div className="grid grid-cols-2 gap-x-8 pt-2">
+                <div>
+                  <p className="text-[#575757] text-4">Category</p>
+                  <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
+                    <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full flex items-center outline-none h-11">
+                      <label htmlFor="region"></label>
+                      <select
+                        className="w-full border-none outline-none"
+                        required>
+                        <option value="rent">Rent</option>
+                        <option value="sale">Sale</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Price */}
+            <h1 className="text-2xl text-[#444] mt-6">{t("Price")}</h1>
+            <div className="grid grid-cols-2 gap-x-4 pt-2 gap-4">
               <div>
                 <p className="text-[#575757] text-4">Starting price</p>
                 <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
@@ -150,41 +172,67 @@ const AddVillas = () => {
                   <span className="pr-2">UZS</span>
                 </div>
               </div>
-            </div>
-            <h1 className="text-2xl text-[#444] mt-4">Address</h1>
-            <div className="grid grid-cols-2 gap-x-8 pt-2">
               <div>
-                <p className="text-[#575757] text-4">Region</p>
+                <p className="text-[#575757] text-4">
+                  Price for a weekend for a day
+                </p>
                 <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
-                  <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full flex items-center outline-none h-11">
-                    <label htmlFor="region"></label>
-                    <select
-                      className="w-full border-none outline-none"
-                      required>
-                      <option value="region">Region</option>
-                    </select>
-                  </div>
+                  <input
+                    type="text"
+                    className="h-11 pl-2 rounded-md outline-none text-[#575757] text-[14px] focus:border-[#ff7e47]"
+                    placeholder="Price"
+                    required
+                  />
+                  <span className="pr-2">UZS</span>
                 </div>
               </div>
               <div>
-                <p className="text-[#575757] text-4">City / district</p>
-                <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
-                  <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full  flex items-center h-11">
-                    <label htmlFor="street"></label>
-                    <select className="w-full border-none outline-none">
-                      <option value="street">Street</option>
-                    </select>
+                <div>
+                  <p className="text-[#575757] text-4">Gage of deposite</p>
+                  <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
+                    <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full flex items-center outline-none h-11">
+                      <label htmlFor="region"></label>
+                      <select
+                        className="w-full border-none outline-none"
+                        required>
+                        <option value="10">10%</option>
+                        <option value="20">20%</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="cursor-pointer flex items-center justify-center mt-4 px-[16px] py-[10px] rounded-md text-white bg-[#ff7e47]">
-              <MdLocationPin size={20} />
-              Choose geolocation
+            <h1 className="text-2xl text-[#444] mt-6">{t("Time")}</h1>
+            <div className="grid grid-cols-2 gap-x-4 pt-2 gap-4">
+              <div>
+                <p className="text-[#575757] text-4">Starting price</p>
+                <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
+                  <input
+                    type="time"
+                    className="h-11 pl-2 rounded-md outline-none text-[#575757] text-[14px] focus:border-[#ff7e47]"
+                    placeholder="Price"
+                    required
+                  />
+                  <span className="pr-2">UZS</span>
+                </div>
+              </div>
+              <div>
+                <p>Price on sale (optional)</p>
+                <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
+                  <input
+                    type="time"
+                    className="h-11 pl-2 outline-none text-[#575757]  px-[11px] py-[7px] rounded-md focus:border-[#ff7e47]"
+                    placeholder="Price"
+                    required
+                  />
+                  <span className="pr-2">UZS</span>
+                </div>
+              </div>
             </div>
           </div>
           {img1 && (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 max-h-[81px]  mt-[-160px] mb-4">
               <div className={`relative ${img1 ? "inline" : "hidden"}`}>
                 <img
                   src={img1}
@@ -226,51 +274,110 @@ const AddVillas = () => {
               </div>
             </div>
           )}
-          <div>
-            <h1 className="mt-4 mb-1 text-[#575757]">Add video</h1>
-            <div className="rounded-md border border-[#e5e5e5] text-[#444]  h-11 flex hover:border-[#ff7e47]">
-              <span className="bg-[#e5e5e5] rounded-l-md flex items-center text-[14px] px-[8px] py-[12px] w-[20%]">
-                Video link
-              </span>
-              <input
-                type="text"
-                placeholder="youtube.com"
-                className="pl-2 border-none w-full outline-none rounded-r-md "
-              />
-            </div>
-          </div>
         </div>
-
-        <div className="grid grid-cols-2 mt-8 gap-x-8">
+        <div className="grid grid-cols-2 mt-4 gap-x-8">
           <div>
-            <h1 className="text-2xl text-[#444] font-semibold">
+            <div className="mt-[-60px]">
+              <h1 className="mt-[10px] mb-1 text-[#575757]">Add video</h1>
+              <div className="rounded-md border border-[#e5e5e5] text-[#444] flex hover:border-[#ff7e47]">
+                <span className="bg-[#e5e5e5] rounded-l-md flex items-center text-[14px] px-[8px] py-[12px] w-[20%]">
+                  Video link
+                </span>
+                <input
+                  type="text"
+                  placeholder="youtube.com"
+                  className="pl-2 border-none w-full outline-none rounded-r-md "
+                />
+              </div>
+            </div>
+            {/* ADDRESS */}
+            <h1 className="text-2xl text-[#444] mt-8">Address</h1>
+            <div className="grid grid-cols-2 gap-x-8 pt-2">
+              <div>
+                <p className="text-[#575757] text-4">Region</p>
+                <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
+                  <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full flex items-center outline-none h-11">
+                    <label htmlFor="region"></label>
+                    <select
+                      className="w-full border-none outline-none"
+                      required>
+                      <option value="region">Region</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p className="text-[#575757] text-4">City / district</p>
+                <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
+                  <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full  flex items-center h-11">
+                    <label htmlFor="street"></label>
+                    <select className="w-full border-none outline-none">
+                      <option value="street">Street</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="cursor-pointer flex items-center justify-center mt-4 px-[16px] py-[10px] rounded-md text-white bg-[#ff7e47]">
+              <MdLocationPin size={20} />
+              Choose geolocation
+            </div>
+
+            {/* MAIN INFORMATION */}
+            <h1 className="text-2xl text-[#444] font-semibold mt-6">
               Main information
             </h1>
-            <div className=" gap-x-8 pt-2">
+            <div className="grid grid-cols-2 gap-4 gap-x-8 pt-2">
               <div>
                 <p className="text-[#575757] text-4">Name</p>
                 <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1 w-[268px]">
                   <input
                     type="text"
                     className="h-11 w-full pl-2 rounded-md outline-none text-[#575757] text-[14px] focus:border-[#ff7e47]"
-                    placeholder="Name"
+                  />
+                </div>
+              </div>
+              <div>
+                <p className="text-[#575757] text-4">Count of rooms</p>
+                <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1 w-[268px]">
+                  <input
+                    type="text"
+                    className="h-11 w-full pl-2 rounded-md outline-none text-[#575757] text-[14px] focus:border-[#ff7e47]"
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <p className="text-[#575757] text-4">Single bad count</p>
+                <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1 w-[268px]">
+                  <input
+                    type="text"
+                    className="h-11 w-full pl-2 rounded-md outline-none text-[#575757] text-[14px] focus:border-[#ff7e47]"
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <p className="text-[#575757] text-4">Double bad count</p>
+                <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1 w-[268px]">
+                  <input
+                    type="text"
+                    className="h-11 w-full pl-2 rounded-md outline-none text-[#575757] text-[14px] focus:border-[#ff7e47]"
+                    required
                   />
                 </div>
               </div>
             </div>
-
-            <h1 className="text-2xl text-[#444] mt-4">Conveniences</h1>
-            <div className="gap-x-8 pt-2">
-              <div>
-                <p className="text-[#575757] text-4">Select conveniences</p>
-                <div className="border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
-                  <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] outline-none ">
-                    <label htmlFor="convenienc"></label>
-                    <select className="w-full border-none outline-none">
-                      <option value="convenienc">convenienc </option>
-                    </select>
-                  </div>
-                </div>
+            <div>
+              <p className="text-[#575757] text-4 mt-4">
+                Total area (optional)
+              </p>
+              <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1 w-[268px]">
+                <input
+                  type="text"
+                  className="h-11 w-full pl-2 rounded-md outline-none text-[#575757] text-[14px] focus:border-[#ff7e47]"
+                  required
+                />
               </div>
             </div>
           </div>
@@ -414,6 +521,24 @@ const AddVillas = () => {
                 <label className="text-[#575757]" htmlFor="part">
                   No
                 </label>
+              </div>
+              <div>
+                <h1 className="text-2xl text-[#444] mt-[-25px]">
+                  Conveniences
+                </h1>
+                <div className="gap-x-8 pt-2">
+                  <div>
+                    <p className="text-[#575757] text-4">Select conveniences</p>
+                    <div className="border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1 h-[44px]">
+                      <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] outline-none ">
+                        <label htmlFor="convenienc"></label>
+                        <select className="w-full border-none outline-none">
+                          <option value="convenienc">convenienc </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
