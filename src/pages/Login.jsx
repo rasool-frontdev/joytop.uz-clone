@@ -130,7 +130,7 @@ const Login = () => {
   };
 
   return (
-    <div className="">
+    <div className="login">
       <div id="recaptcha-container" className="recaptcha-container"></div>
       {/* <button onClick={signInWithGoogle}>Sing in with Google</button> */}
       <div className="mt-24 flex justify-center items-center">

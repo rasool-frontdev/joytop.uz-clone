@@ -16,10 +16,14 @@
   margin: 0 auto;
   max-width: 1140px;
 }
-input:hover,
-input:focus,
-select:hover,
-select:focus,
+.login,
+.register > input:hover,
+.login,
+.register > input:focus,
+.login,
+.register > select:hover,
+.login,
+.register > select:focus,
 .phone-input:focus,
 .phone-input:hover {
   border: 1px solid #ff7e47;

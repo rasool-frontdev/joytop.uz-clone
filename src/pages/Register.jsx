@@ -149,7 +149,7 @@ const Register = () => {
   return (
     <>
       <div id="recaptcha-container" className="recaptcha-container"></div>
-      <div className="mt-[-16px] mb-[100px] flex justify-center items-center">
+      <div className="mt-[-16px] mb-[100px] flex justify-center items-center register">
         <div>
           {toggle ? (
             <>
