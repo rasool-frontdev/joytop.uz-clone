@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { homeCategories } from "../service/homeCategories";
 import { useRef, useState } from "react";
 import { MdLocationPin } from "react-icons/md";
@@ -12,6 +12,8 @@ import { IoMdClose } from "react-icons/io";
 const AddTours = () => {
   const { t, i18n } = useTranslation();
   const { categoryId } = useParams();
+  const navigate = useNavigate();
+
   const formRef = useRef();
   const [img1, setImg1] = useState();
   const [img2, setImg2] = useState();
@@ -86,7 +88,7 @@ const AddTours = () => {
   return (
     <div className="container">
       <div className="bg-[#F7F7FA] py-[2px] px-2 mb-4 w-10 h-10 flex items-center rounded-md">
-        <BiArrowBack color="#575757" size={25} />
+        <BiArrowBack color="#575757" size={25} onClick={() => navigate(-1)} />
       </div>
       <h1 className="text-[#444] text-[32px] font-bold leading-[62px]">
         {t("Post a")} Tour
