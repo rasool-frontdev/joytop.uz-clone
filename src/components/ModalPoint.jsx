@@ -46,7 +46,7 @@ const ModalPoint = () => {
                         className="w-[42px] h-[42px]"
                       />
                       <h6 className="text-white font-medium">
-                        {category.nameUz}
+                        {category.title}
                       </h6>
                     </div>
                   </button>

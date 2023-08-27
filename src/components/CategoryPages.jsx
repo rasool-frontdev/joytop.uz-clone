@@ -13,7 +13,7 @@ const CategoryPages = () => {
             id={category.id}>
             <div className="flex flex-col items-center">
               <img src={category.icon} alt="img" className="w-[50px] h-full" />
-              <h6 className="text-lightWhite">{category.nameUz}</h6>
+              <h6 className="text-lightWhite">{category.title}</h6>
             </div>
           </Link>
         ))}

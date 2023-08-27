@@ -9,20 +9,12 @@ import { IoMdClose } from "react-icons/io";
 
 // Initialization for ES Users
 
-const AddPoint = () => {
+const AddResorts = () => {
   const { t, i18n } = useTranslation();
-  const { categoryId } = useParams();
   const formRef = useRef();
   const [img1, setImg1] = useState();
   const [img2, setImg2] = useState();
   const [img3, setImg3] = useState();
-
-  let newObj = null;
-  homeCategories.map((item) => {
-    if (item.id === categoryId) {
-      return (newObj = item);
-    }
-  });
 
   function handleChangeImg(e) {
     console.log(e.target.files);
@@ -59,7 +51,7 @@ const AddPoint = () => {
     const phone = formRef?.current[21].value;
     const message = formRef?.current[22].value;
 
-    const addPointData = {
+    const addPointResorts = {
       image1,
       image2,
       image3,
@@ -84,9 +76,10 @@ const AddPoint = () => {
       partyY,
       phone,
       message,
+      category: categoryId,
     };
 
-    console.log(addPointData);
+    console.log(addPointResorts);
   };
 
   return (
@@ -95,7 +88,7 @@ const AddPoint = () => {
         <BiArrowBack color="#575757" size={25} />
       </div>
       <h1 className="text-[#444] text-[32px] font-bold leading-[62px]">
-        {t("Post an ad")}: {newObj.nameUz}
+        {t("Post an ad")}: Resorts
       </h1>
       <form ref={formRef} onSubmit={handlerAddPoint}>
         <div className="pt-12 grid grid-cols-2 gap-x-8">
@@ -479,4 +472,4 @@ const AddPoint = () => {
   );
 };
 
-export default AddPoint;
+export default AddResorts;

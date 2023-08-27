@@ -10,7 +10,13 @@ const Hotels = lazy(() => import("./pages/Hotels"));
 const Resorts = lazy(() => import("./pages/Resorts"));
 const Tours = lazy(() => import("./pages/Tours"));
 const Extreme = lazy(() => import("./pages/Extreme"));
-const AddPoint = lazy(() => import("./pages/AddPoint"));
+const AddResorts = lazy(() => import("./pages/AddResorts"));
+const AddVillas = lazy(() => import("./pages/AddVillas"));
+const AddApartments = lazy(() => import("./pages/AddApartments"));
+const AddHotels = lazy(() => import("./pages/AddHotels"));
+const AddTours = lazy(() => import("./pages/AddTours"));
+const AddExtreme = lazy(() => import("./pages/AddExtreme"));
+
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
 
@@ -33,7 +39,12 @@ function App() {
           <Route path="/resorts" element={<Resorts />} />
           <Route path="/tours" element={<Tours />} />
           <Route path="/extreme" element={<Extreme />} />
-          <Route path="/add-point/:categoryId" element={<AddPoint />} />
+          <Route path="/add-point/villas" element={<AddVillas />} />
+          <Route path="/add-point/apartments" element={<AddApartments />} />
+          <Route path="/add-point/hotels" element={<AddHotels />} />
+          <Route path="/add-point/resorts" element={<AddResorts />} />
+          <Route path="/add-point/tours" element={<AddTours />} />
+          <Route path="/add-point/extreme" element={<AddExtreme />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 

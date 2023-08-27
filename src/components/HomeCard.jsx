@@ -16,7 +16,7 @@ const HomeCard = ({ category }) => {
       <div
         className={`${category?.bg} bg-opacity-60 rounded-[10px] w-full h-full z-10 absolute top-0`}></div>
       <h1 className="text-[#fff] w-full z-20 text-[24px] md:text-[30px] font-medium text-center absolute top-[80%]">
-        {category.nameUz}
+        {category.title}
       </h1>
       <div className="absolute border-none w-[60px] md:w-[90px] transform -translate-x-1/2 -translate-y-1/2 border top-1/2 left-1/2 z-[99]">
         <img src={category.icon} alt="img" />
