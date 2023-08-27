@@ -11,7 +11,7 @@ const Tours = () => {
   const { t, i18n } = useTranslation();
   return (
     <div>
-      <Helmet title={t("Apartments")} />
+      <Helmet title={t("Tours")} />
       <CategoryPages />
       <FilterCard />
       <CategoryTitle />

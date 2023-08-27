@@ -12,7 +12,7 @@ const Villas = () => {
 
   return (
     <div>
-      <Helmet title={t("Apartments")} />
+      <Helmet title={t("Villas")} />
       <CategoryPages />
       <FilterCard />
       <CategoryTitle />

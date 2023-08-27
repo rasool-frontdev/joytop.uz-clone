@@ -8,31 +8,29 @@ import { auth } from "../firebase";
 import { useDispatch } from "react-redux";
 import { registerUserSuccess, userLoggedIn, userSignOut } from "../slice/auth";
 import { ToastContainer } from "react-toastify";
+import ModalPoint from "../components/ModalPoint";
 
 const Layout = () => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     const checkUserAuth = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
-      dispatch(
-        currentUser?.phoneNumber
-          ? userLoggedIn(currentUser?.phoneNumber)
-          : userSignOut({})
-      );
+      if (currentUser?.phoneNumber) {
+        console.log(currentUser);
+        dispatch(userLoggedIn(currentUser?.phoneNumber));
+        dispatch(
+          registerUserSuccess(JSON.parse(localStorage.getItem("userData")))
+        );
+      } else {
+        userSignOut({});
+      }
     });
 
-    const checkUserData = onAuthStateChanged(auth, (currentUser) => {
-      dispatch(
-        currentUser?.phoneNumber
-          ? registerUserSuccess(JSON.parse(localStorage.getItem("user")))
-          : userSignOut({})
-      );
-    });
     return () => {
       checkUserAuth();
-      checkUserData();
     };
-  }, [dispatch]);
+  });
+
   return (
     <>
       <ToastContainer
@@ -47,14 +45,13 @@ const Layout = () => {
         pauseOnHover={false}
         theme="light"
       />
-      {/* Same as */}
-      <ToastContainer />
       <div className="">
         <Suspense fallback={<h1>Loading...</h1>}>
           <Navbar />
           <div className="container xss:max-w-[576px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1140px] pt-[146px]">
             <Outlet />
           </div>
+          <ModalPoint />
           <Footer />
         </Suspense>
       </div>

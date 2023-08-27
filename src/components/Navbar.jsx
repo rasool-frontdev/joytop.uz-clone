@@ -10,6 +10,7 @@ import { userSignOut } from "../slice/auth";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n";
 import languages from "../locales/languages";
+import { setToggle } from "../slice/addPoint";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -17,9 +18,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
+  const { toggle } = useSelector((state) => state.addPoint);
+
   const [toggleNav, setToggleNav] = useState(false);
   const [toggleLang, setToggleLang] = useState(false);
-
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -28,8 +30,7 @@ const Navbar = () => {
       toast.success(t("Successfully sign out"));
       navigate("/login");
     } catch (error) {
-      toast.error(t("Something went wrong!"));
-      console.log(error.response.message);
+      toast.error(t("Something went wrong!" + error.message));
       console.log(error.message);
     }
   };
@@ -52,7 +53,7 @@ const Navbar = () => {
         <div className="shadow-[0_5px_50px_rgba(0,0,0,0.09)] w-full px-4">
           <div className="container">
             <div className="">
-              <div className="mb-[0px] py-[25px] mx-auto sm:mx-none max-w-[510px] sm:max-w-full flex justify-between items-center xxs:px-4">
+              <div className="mb-[0px] py-[25px] mx-auto sm:mx-none max-w-[510px] sm:max-w-full flex justify-between items-center">
                 <NavLink to="/" className="flex items-center">
                   <img
                     src="http://joytop.mbs-edu.uz/static/media/logo.e6fa5e4a.svg"
@@ -77,7 +78,7 @@ const Navbar = () => {
                       <h6 className="after:content-[''] after:absolute hover:text-[#]  bg-[#ff7e47] h-[2px] w-full"></h6>
                     </span>
                     <NavLink
-                      // onClick={() => setToggleBtn((prev) => !prev)}
+                      onClick={() => dispatch(setToggle())}
                       className="text-[14px] outline-none font-bold px-[15px] py-[5px] rounded-[6px] bg-[#ff7e47] hover:bg-[#ff9668] text-[#ffeacb] ">
                       {t("Add Point")}
                     </NavLink>
