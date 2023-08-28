@@ -1,4 +1,4 @@
-import { lazy, useEffect } from "react";
+import { lazy } from "react";
 import { useTranslation } from "react-i18next";
 import { useGetData } from "../hooks/useGetData";
 
@@ -9,7 +9,9 @@ const CategoryTitle = lazy(() => import("../components/CategoryTitle"));
 const Cards = lazy(() => import("../components/Cards"));
 
 const Resorts = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const { data: data, loading: loading } = useGetData("resorts");
+  console.log(data);
   // const [villas, setVillas] = useState([]);
   // const [apartments, setApartments] = useState([]);
   // const [hotels, setHotels] = useState([]);
@@ -50,8 +52,7 @@ const Resorts = () => {
       <CategoryPages />
       <FilterCard />
       <CategoryTitle />
-      <Cards />
-      Resorts
+      <Cards data={data} />
     </div>
   );
 };

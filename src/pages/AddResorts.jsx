@@ -278,6 +278,7 @@ const AddResorts = () => {
                   <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full  flex items-center h-11">
                     <label htmlFor="street"></label>
                     <select className="w-full border-none outline-none">
+                      <option value="">Choose city/dis</option>
                       <option value="bekabad">Bekabad</option>
                       <option value="boston">Boston</option>
                       <option value="boka">Boka</option>
