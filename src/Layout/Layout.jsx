@@ -16,7 +16,7 @@ const Layout = () => {
   useEffect(() => {
     const checkUserAuth = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser?.phoneNumber) {
-        console.log(currentUser);
+        // console.log(currentUser);
         dispatch(userLoggedIn(currentUser?.phoneNumber));
         dispatch(
           registerUserSuccess(JSON.parse(localStorage.getItem("userData")))

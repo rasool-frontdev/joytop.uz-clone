@@ -1,36 +1,46 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { homeCategories } from "../service/homeCategories";
+import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { MdLocationPin } from "react-icons/md";
 import { BiArrowBack } from "react-icons/bi";
 import uploadImg from "../assets/uploadImg.png";
 import { useTranslation } from "react-i18next";
 import { IoMdClose } from "react-icons/io";
+import { auth, db, storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { addDoc, collection } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 // Initialization for ES Users
 
 const AddResorts = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const formRef = useRef();
+  const uuid = crypto.randomUUID();
 
   const [img1, setImg1] = useState();
   const [img2, setImg2] = useState();
   const [img3, setImg3] = useState();
 
+  function getDate() {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    return `${date}-${month}-${year}`;
+  }
+
   function handleChangeImg(e) {
-    console.log(e.target.files);
-    setImg1(URL.createObjectURL(e.target.files[0]));
-    setImg2(URL.createObjectURL(e.target.files[1]));
-    setImg3(URL.createObjectURL(e.target.files[2]));
+    // console.log(e.target.files);
+    setImg1(URL?.createObjectURL(e?.target?.files[0]));
+    // setImg2(URL?.createObjectURL(e?.target?.files[1]));
+    // setImg3(URL?.createObjectURL(e?.target?.files[2]));
   }
 
   const handlerAddPoint = (e) => {
     e.preventDefault();
     // const image = formRef?.current[0]?.value;
     const image1 = formRef?.current[1]?.files[0];
-    const image2 = formRef?.current[1]?.files[1];
-    const image3 = formRef?.current[1]?.files[2];
     const startingPrice = formRef?.current[2].value;
     const salePrice = formRef?.current[3].value;
     const region = formRef?.current[4].value;
@@ -53,35 +63,120 @@ const AddResorts = () => {
     const phone = formRef?.current[21].value;
     const message = formRef?.current[22].value;
 
-    const addPointResorts = {
-      image1,
-      image2,
-      image3,
-      startingPrice,
-      salePrice,
-      region,
-      city,
-      videoLink,
-      name,
-      convenienc,
-      smokingY,
-      smokingN,
-      alcaholY,
-      alcaholN,
-      petY,
-      petN,
-      onlyFamilyY,
-      onlyFamilyN,
-      musicY,
-      musicN,
-      partyN,
-      partyY,
-      phone,
-      message,
-      category: categoryId,
-    };
+    console.log(image1);
 
-    console.log(addPointResorts);
+    if (image1 == null) return;
+
+    try {
+      const docRef = collection(db, "resorts");
+      const storageRef = ref(storage, `resortImages/${uuid}`);
+      const uploadTask = uploadBytesResumable(storageRef, image1);
+      uploadTask.on(
+        () => {
+          toast.error("Image not uploaded");
+        },
+        async () => {
+          await getDownloadURL(uploadTask.snapshot.ref).then(
+            async (downloadURL) => {
+              await addDoc(docRef, {
+                id: uuid,
+                image: downloadURL,
+                startingPrice,
+                salePrice,
+                region,
+                city,
+                videoLink,
+                name,
+                convenienc,
+                smokingY,
+                smokingN,
+                alcaholY,
+                alcaholN,
+                petY,
+                petN,
+                onlyFamilyY,
+                onlyFamilyN,
+                musicY,
+                musicN,
+                partyN,
+                partyY,
+                phone,
+                message,
+                category: "resorts",
+                type: "Rent",
+                userId: auth?.currentUser?.uid,
+                createdData: getDate(),
+              });
+            }
+          );
+          // window.location.reload(false);
+        }
+      );
+      // setLoading(false);
+      toast.success("Successfully added!");
+      navigate("/");
+      // window.location.reload(false);
+    } catch (error) {
+      // setLoading(false);
+      toast.error(error.message);
+      console.log(error.message);
+    }
+
+    // try {
+    //   const docRef = collection(db, "resorts");
+    //   const storageRef = ref(storage, `resortsImages/${uuid}`);
+    //   const uploadTask = uploadBytesResumable(storageRef, image1);
+    //   uploadTask.on(
+    //     () => {
+    //       toast.error("Image not uploaded");
+    //     },
+    //     async () => {
+    //       await getDownloadURL(uploadTask.snapshot.ref).then(
+    //         async (downloadURL) => {
+    //           await addDoc(docRef, {
+    //             id: uuid,
+    //             image: downloadURL,
+    //             startingPrice,
+    //             salePrice,
+    //             region,
+    //             city,
+    //             videoLink,
+    //             name,
+    //             convenienc,
+    //             smokingY,
+    //             smokingN,
+    //             alcaholY,
+    //             alcaholN,
+    //             petY,
+    //             petN,
+    //             onlyFamilyY,
+    //             onlyFamilyN,
+    //             musicY,
+    //             musicN,
+    //             partyN,
+    //             partyY,
+    //             phone,
+    //             message,
+    //             category: "resorts",
+    //             type: "Rent",
+    //             userId: auth?.currentUser?.uid,
+    //             createdData: getDate(),
+    //           });
+    //           console.log("render 1");
+    //         }
+    //       );
+    //       console.log("render 2");
+    //     }
+    //   );
+    //   // setLoading(false);
+    //   toast.success("Product created successfully");
+    //   // navigate("/dashboard/all-products");
+    // } catch (error) {
+    //   // setLoading(false);
+    //   console.log(error.message);
+    //   toast.error(error.message);
+    //   console.log("render error");
+    // }
   };
 
   return (
@@ -118,7 +213,7 @@ const AddResorts = () => {
                 id="upload-file"
                 type="file"
                 multiple="multiple"
-                accept="image/jpeg, image/png, image/jpg"
+                // accept="image"
                 className="hidden"
                 onChange={handleChangeImg}
               />
@@ -162,7 +257,17 @@ const AddResorts = () => {
                     <select
                       className="w-full border-none outline-none"
                       required>
-                      <option value="region">Region</option>
+                      <option value="">Choose region</option>
+                      <option value="tashkent city">Tashkent city</option>
+                      <option value="tashkent region">Tashkent region</option>
+                      <option value="andijan region">Andijan region</option>
+                      <option value="bukhara region">Bukhara region</option>
+                      <option value="jizzakh region">Jizzakh region</option>
+                      <option value="karakalpakstan">Karakalpakstan</option>
+                      <option value="kashkadarya">Kashkadarya region</option>
+                      <option value="navoi region">Navoi region</option>
+                      <option value="namangan region">Namangan region</option>
+                      <option value="Samarkand region">Samarkand region</option>
                     </select>
                   </div>
                 </div>
@@ -173,7 +278,11 @@ const AddResorts = () => {
                   <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full  flex items-center h-11">
                     <label htmlFor="street"></label>
                     <select className="w-full border-none outline-none">
-                      <option value="street">Street</option>
+                      <option value="bekabad">Bekabad</option>
+                      <option value="boston">Boston</option>
+                      <option value="boka">Boka</option>
+                      <option value="kibray">Kibray</option>
+                      <option value="parkent">Parkent</option>
                     </select>
                   </div>
                 </div>
@@ -268,7 +377,13 @@ const AddResorts = () => {
                   <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] outline-none ">
                     <label htmlFor="convenienc"></label>
                     <select className="w-full border-none outline-none">
-                      <option value="convenienc">convenienc </option>
+                      <option value="">Wi-Fi internet</option>
+                      <option value="">Playstation 4 </option>
+                      <option value="">Playstation 5 </option>
+                      <option value="">AC</option>
+                      <option value="">Pool</option>
+                      <option value="">Sauna </option>
+                      <option value="">Table tennis </option>
                     </select>
                   </div>
                 </div>
@@ -284,7 +399,7 @@ const AddResorts = () => {
                   type="radio"
                   id="smoking"
                   name="smoking"
-                  value="smokingY"
+                  value="true"
                   className="mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="smoking">
@@ -294,7 +409,7 @@ const AddResorts = () => {
                   type="radio"
                   id="smoking"
                   name="smoking"
-                  value="smokingN"
+                  value="false"
                   className="ml-4 mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="smoking">
@@ -307,7 +422,7 @@ const AddResorts = () => {
                   type="radio"
                   id="alcohol"
                   name="alcahol"
-                  value="alcaholyes"
+                  value="true"
                   className="mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="alcohol">
@@ -317,7 +432,7 @@ const AddResorts = () => {
                   type="radio"
                   id="alcahol"
                   name="alcahol"
-                  value="alcaholno"
+                  value="false"
                   className="ml-4 mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="alcahol">
@@ -330,7 +445,7 @@ const AddResorts = () => {
                   type="radio"
                   id="pet"
                   name="pet"
-                  value="petY"
+                  value="true"
                   className="mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="pet">
@@ -340,7 +455,7 @@ const AddResorts = () => {
                   type="radio"
                   id="pet"
                   name="pet"
-                  value="petN"
+                  value="false"
                   className="ml-4 mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="pet">
@@ -353,7 +468,7 @@ const AddResorts = () => {
                   type="radio"
                   id="family"
                   name="family"
-                  value="familyY"
+                  value="true"
                   className="mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="family">
@@ -363,7 +478,7 @@ const AddResorts = () => {
                   type="radio"
                   id="family"
                   name="family"
-                  value="familyN"
+                  value="false"
                   className="ml-4 mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="family">
@@ -376,7 +491,7 @@ const AddResorts = () => {
                   type="radio"
                   id="music"
                   name="music"
-                  value="musicY"
+                  value="true"
                   className="mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="music">
@@ -386,7 +501,7 @@ const AddResorts = () => {
                   type="radio"
                   id="music"
                   name="music"
-                  value="musicN"
+                  value="false"
                   className="ml-4 mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="music">
@@ -399,7 +514,7 @@ const AddResorts = () => {
                   type="radio"
                   id="party"
                   name="party"
-                  value="partyY"
+                  value="true"
                   className="mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="party">
@@ -409,7 +524,7 @@ const AddResorts = () => {
                   type="radio"
                   id="party"
                   name="party"
-                  value="partyN"
+                  value="false"
                   className="ml-4 mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="part">
