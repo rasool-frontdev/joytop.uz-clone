@@ -1,6 +1,6 @@
 import { SlLocationPin } from "react-icons/sl";
 const Card = (item) => {
-  console.log(item.item);
+  console.log(item);
   return (
     <div className="xxs:w-[520px] sm:w-[345px] sm:h-[480px] md:w-full md:h-[480px] m-1 p-4 shadow-[-5px_0_10px_5px_#f4f4f4] rounded-md relative">
       <div className="text-[#575757] text-normal">

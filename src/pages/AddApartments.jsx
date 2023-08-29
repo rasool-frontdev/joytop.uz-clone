@@ -1,87 +1,160 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { homeCategories } from "../service/homeCategories";
+import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { MdLocationPin } from "react-icons/md";
 import { BiArrowBack } from "react-icons/bi";
 import uploadImg from "../assets/uploadImg.png";
 import { useTranslation } from "react-i18next";
 import { IoMdClose } from "react-icons/io";
+import { toast } from "react-toastify";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db, storage } from "../firebase";
 
 // Initialization for ES Users
 
 const AddApartments = () => {
   const { t, i18n } = useTranslation();
-  const { categoryId } = useParams();
   const navigate = useNavigate();
   const formRef = useRef();
+  const uuid = crypto.randomUUID();
+
   const [img1, setImg1] = useState();
-  const [img2, setImg2] = useState();
-  const [img3, setImg3] = useState();
+  const [smoking, setSmoking] = useState(false);
+  const [alcahol, setAlcahol] = useState(false);
+  const [pet, setPet] = useState(false);
+  const [family, setFamily] = useState(false);
+  const [music, setMusic] = useState(false);
+  const [party, setParty] = useState(false);
+
+  function getDate() {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    return `${date}-${month}-${year}`;
+  }
 
   function handleChangeImg(e) {
-    console.log(e.target.files);
     setImg1(URL.createObjectURL(e.target.files[0]));
-    setImg2(URL.createObjectURL(e.target.files[1]));
-    setImg3(URL.createObjectURL(e.target.files[2]));
   }
 
   const handlerAddPoint = (e) => {
     e.preventDefault();
-    // const image = formRef?.current[0]?.value;
     const image1 = formRef?.current[1]?.files[0];
-    const image2 = formRef?.current[1]?.files[1];
-    const image3 = formRef?.current[1]?.files[2];
-    const startingPrice = formRef?.current[2].value;
-    const salePrice = formRef?.current[3].value;
-    const region = formRef?.current[4].value;
-    const city = formRef?.current[5].value;
+    const type = formRef?.current[2].value;
+    const startingPrice = formRef?.current[3].value;
+    const salePrice = formRef?.current[4].value;
+    const deposite = formRef?.current[5].value;
     const videoLink = formRef?.current[6].value;
-    const name = formRef?.current[7].value;
-    const convenienc = formRef?.current[8].value;
-    const smokingY = formRef?.current[9].value;
-    const smokingN = formRef?.current[10].value;
-    const alcaholY = formRef?.current[11].value;
-    const alcaholN = formRef?.current[12].value;
-    const petY = formRef?.current[13].value;
-    const petN = formRef?.current[14].value;
-    const onlyFamilyY = formRef?.current[15].value;
-    const onlyFamilyN = formRef?.current[16].value;
-    const musicY = formRef?.current[17].value;
-    const musicN = formRef?.current[18].value;
-    const partyN = formRef?.current[20].value;
-    const partyY = formRef?.current[19].value;
-    const phone = formRef?.current[21].value;
-    const message = formRef?.current[22].value;
+    const region = formRef?.current[7].value;
+    const city = formRef?.current[8].value;
+    const countRoom = formRef?.current[9].value;
+    const allArea = formRef?.current[10].value;
+    const singleBed = formRef?.current[11].value;
+    const doubleBed = formRef?.current[12].value;
+    const totalArea = formRef?.current[13].value;
+    // const onlyFamilyY = formRef?.current[15].value;
+    // const onlyFamilyN = formRef?.current[16].value;
+    // const musicY = formRef?.current[24].value;
+    // const musicN = formRef?.current[25].value;
+    // const partyY = formRef?.current[23].value;
+    const convenienc = formRef?.current[26].value;
+    const phone = formRef?.current[27].value;
+    const name = formRef?.current[15].value;
+    const message = formRef?.current[28].value;
 
-    const addPointResorts = {
+    let data = {
+      type,
+      id: uuid,
+      // image: downloadURL,
       image1,
-      image2,
-      image3,
+      // onlyFamilyY,
+      // onlyFamilyN,
+      // musicY,
+      // musicN,
+      // partyN,
+      // partyY,
       startingPrice,
       salePrice,
       region,
+      totalArea,
+      deposite,
       city,
       videoLink,
+      countRoom,
       name,
       convenienc,
-      smokingY,
-      smokingN,
-      alcaholY,
-      alcaholN,
-      petY,
-      petN,
-      onlyFamilyY,
-      onlyFamilyN,
-      musicY,
-      musicN,
-      partyN,
-      partyY,
+      smoking,
+      allArea,
+      alcahol,
+      pet,
+      family,
+      music,
+      party,
       phone,
+      singleBed,
+      doubleBed,
       message,
-      category: categoryId,
+      category: "apartments",
+      userId: auth?.currentUser?.uid,
+      createdData: getDate(),
     };
+    if (image1 == null) return;
 
-    console.log(addPointResorts);
+    try {
+      const docRef = collection(db, "apartments");
+      const storageRef = ref(storage, `apartmentsImages/${uuid}`);
+      const uploadTask = uploadBytesResumable(storageRef, image1);
+      uploadTask.on(
+        () => {
+          toast.error("Image not uploaded");
+        },
+        async () => {
+          await getDownloadURL(uploadTask.snapshot.ref).then(
+            async (downloadURL) => {
+              await addDoc(docRef, {
+                type,
+                id: uuid,
+                image: downloadURL,
+                startingPrice,
+                salePrice,
+                region,
+                totalArea,
+                deposite,
+                city,
+                videoLink,
+                countRoom,
+                name,
+                convenienc,
+                smoking,
+                allArea,
+                alcahol,
+                pet,
+                family,
+                music,
+                party,
+                phone,
+                singleBed,
+                doubleBed,
+                message,
+                category: "apartments",
+                userId: auth?.currentUser?.uid,
+                createdData: getDate(),
+              });
+            }
+          );
+          // window.location.reload(false);
+        }
+      );
+      // setLoading(false);
+      toast.success("Successfully added!");
+      // navigate("/");
+      // window.location.reload(false);
+    } catch (error) {
+      // setLoading(false);
+      toast.error(error.message);
+      console.log(error.message);
+    }
   };
 
   return (
@@ -119,7 +192,6 @@ const AddApartments = () => {
                 id="upload-file"
                 type="file"
                 multiple="multiple"
-                accept="image/jpeg, image/png, image/jpg"
                 className="hidden"
                 onChange={handleChangeImg}
               />
@@ -134,7 +206,7 @@ const AddApartments = () => {
                   <p className="text-[#575757] text-4">Category</p>
                   <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
                     <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full flex items-center outline-none h-11">
-                      <label htmlFor="region"></label>
+                      <label htmlFor="type"></label>
                       <select
                         className="w-full border-none outline-none"
                         required>
@@ -180,7 +252,7 @@ const AddApartments = () => {
                   </p>
                   <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
                     <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full flex items-center outline-none h-11">
-                      <label htmlFor="region"></label>
+                      <label htmlFor="depocite"></label>
                       <select
                         className="w-full border-none outline-none"
                         required>
@@ -208,7 +280,7 @@ const AddApartments = () => {
                   <IoMdClose size={20} color="#575757" />
                 </span>
               </div>
-              <div className={`relative ${img2 ? "inline" : "hidden"}`}>
+              {/* <div className={`relative ${img2 ? "inline" : "hidden"}`}>
                 <img
                   src={img2}
                   alt="img"
@@ -233,7 +305,7 @@ const AddApartments = () => {
                   onClick={() => setImg3()}>
                   <IoMdClose size={20} color="#575757" />
                 </span>
-              </div>
+              </div> */}
             </div>
           )}
         </div>
@@ -263,7 +335,17 @@ const AddApartments = () => {
                     <select
                       className="w-full border-none outline-none"
                       required>
-                      <option value="region">Region</option>
+                      <option value="">Choose region</option>
+                      <option value="tashkent city">Tashkent city</option>
+                      <option value="tashkent region">Tashkent region</option>
+                      <option value="andijan region">Andijan region</option>
+                      <option value="bukhara region">Bukhara region</option>
+                      <option value="jizzakh region">Jizzakh region</option>
+                      <option value="karakalpakstan">Karakalpakstan</option>
+                      <option value="kashkadarya">Kashkadarya region</option>
+                      <option value="navoi region">Navoi region</option>
+                      <option value="namangan region">Namangan region</option>
+                      <option value="Samarkand region">Samarkand region</option>
                     </select>
                   </div>
                 </div>
@@ -274,7 +356,17 @@ const AddApartments = () => {
                   <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full  flex items-center h-11">
                     <label htmlFor="street"></label>
                     <select className="w-full border-none outline-none">
-                      <option value="street">Street</option>
+                      <option value="">Choose city/dis</option>
+                      <option value="tashkent">Tashkent</option>
+                      <option value="yakkasaray">Yakkasaray</option>
+                      <option value="mirabad">Mirabad</option>
+                      <option value="sergely">Sergely</option>
+                      <option value="mirzo-ulugbek">Mirzo-Ulugbek</option>
+                      <option value="bekabad">Bekabad</option>
+                      <option value="boston">Boston</option>
+                      <option value="boka">Boka</option>
+                      <option value="kibray">Kibray</option>
+                      <option value="parkent">Parkent</option>
                     </select>
                   </div>
                 </div>
@@ -354,7 +446,9 @@ const AddApartments = () => {
                   type="radio"
                   id="smoking"
                   name="smoking"
-                  value="smokingY"
+                  defaultValue={true}
+                  checked={smoking === true}
+                  onChange={() => setSmoking(true)}
                   className="mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="smoking">
@@ -364,7 +458,9 @@ const AddApartments = () => {
                   type="radio"
                   id="smoking"
                   name="smoking"
-                  value="smokingN"
+                  defaultValue={false}
+                  checked={smoking === false}
+                  onChange={() => setSmoking(false)}
                   className="ml-4 mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="smoking">
@@ -377,7 +473,11 @@ const AddApartments = () => {
                   type="radio"
                   id="alcohol"
                   name="alcahol"
-                  value="alcaholyes"
+                  defaultValue={false}
+                  checked={alcahol === true}
+                  onChange={() => {
+                    setAlcahol(true);
+                  }}
                   className="mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="alcohol">
@@ -387,7 +487,11 @@ const AddApartments = () => {
                   type="radio"
                   id="alcahol"
                   name="alcahol"
-                  value="alcaholno"
+                  defaultValue={false}
+                  checked={alcahol === false}
+                  onChange={() => {
+                    setAlcahol(false);
+                  }}
                   className="ml-4 mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="alcahol">
@@ -400,7 +504,9 @@ const AddApartments = () => {
                   type="radio"
                   id="pet"
                   name="pet"
-                  value="petY"
+                  defaultValue={false}
+                  checked={pet === true}
+                  onChange={() => setPet(true)}
                   className="mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="pet">
@@ -410,7 +516,9 @@ const AddApartments = () => {
                   type="radio"
                   id="pet"
                   name="pet"
-                  value="petN"
+                  defaultValue={false}
+                  checked={pet === false}
+                  onChange={() => setPet(false)}
                   className="ml-4 mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="pet">
@@ -423,7 +531,9 @@ const AddApartments = () => {
                   type="radio"
                   id="family"
                   name="family"
-                  value="familyY"
+                  defaultValue={false}
+                  checked={family === true}
+                  onChange={() => setFamily(true)}
                   className="mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="family">
@@ -433,7 +543,9 @@ const AddApartments = () => {
                   type="radio"
                   id="family"
                   name="family"
-                  value="familyN"
+                  defaultValue={false}
+                  checked={family === false}
+                  onChange={() => setFamily(false)}
                   className="ml-4 mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="family">
@@ -446,7 +558,9 @@ const AddApartments = () => {
                   type="radio"
                   id="music"
                   name="music"
-                  value="musicY"
+                  defaultValue={true}
+                  checked={music === true}
+                  onChange={() => setMusic(true)}
                   className="mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="music">
@@ -456,7 +570,9 @@ const AddApartments = () => {
                   type="radio"
                   id="music"
                   name="music"
-                  value="musicN"
+                  defaultValue={false}
+                  checked={music === false}
+                  onChange={() => setMusic(false)}
                   className="ml-4 mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="music">
@@ -469,7 +585,9 @@ const AddApartments = () => {
                   type="radio"
                   id="party"
                   name="party"
-                  value="partyY"
+                  defaultValue={false}
+                  checked={party === true}
+                  onChange={() => setParty(true)}
                   className="mr-1 mt-2 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="party">
@@ -479,7 +597,9 @@ const AddApartments = () => {
                   type="radio"
                   id="party"
                   name="party"
-                  value="partyN"
+                  defaultValue={false}
+                  checked={party === false}
+                  onChange={() => setParty(false)}
                   className="ml-4 mr-1 hover:cursor-pointer"
                 />
                 <label className="text-[#575757]" htmlFor="part">
@@ -497,7 +617,13 @@ const AddApartments = () => {
                       <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] outline-none ">
                         <label htmlFor="convenienc"></label>
                         <select className="w-full border-none outline-none">
-                          <option value="convenienc">convenienc </option>
+                          <option value="wifu">Wi-Fi internet</option>
+                          <option value="ps4">Playstation 4 </option>
+                          <option value="ps5">Playstation 5 </option>
+                          <option value="ac">AC</option>
+                          <option value="pool">Pool</option>
+                          <option value="sauna">Sauna </option>
+                          <option value="tennis">Table tennis </option>
                         </select>
                       </div>
                     </div>

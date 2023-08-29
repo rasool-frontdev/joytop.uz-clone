@@ -62,46 +62,6 @@ const AddVillas = () => {
     const phone = formRef?.current[30].value;
     const message = formRef?.current[31].value;
 
-    // let data = {
-    //   type,
-    //   id: uuid,
-    //   image1,
-    //   startingPrice,
-    //   weekendPrice,
-    //   salePrice,
-    //   startTime,
-    //   endTime,
-    //   region,
-    //   totalArea,
-    //   deposite,
-    //   city,
-    //   videoLink,
-    //   countRoom,
-    //   name,
-    //   convenienc,
-    //   smokingY,
-    //   smokingN,
-    //   alcaholY,
-    //   alcaholN,
-    //   petY,
-    //   petN,
-    //   onlyFamilyY,
-    //   onlyFamilyN,
-    //   musicY,
-    //   musicN,
-    //   partyN,
-    //   partyY,
-    //   phone,
-    //   singleBed,
-    //   doubleBed,
-    //   message,
-    //   category: "villas",
-    //   userId: auth?.currentUser?.uid,
-    //   createdData: getDate(),
-    // };
-
-    // console.log(data);
-
     if (image1 == null) return;
 
     try {
@@ -212,7 +172,7 @@ const AddVillas = () => {
                   <p className="text-[#575757] text-4">Category</p>
                   <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
                     <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full flex items-center outline-none h-11">
-                      <label htmlFor="region"></label>
+                      <label htmlFor="type"></label>
                       <select
                         className="w-full border-none outline-none"
                         required>
@@ -270,7 +230,7 @@ const AddVillas = () => {
                   <p className="text-[#575757] text-4">Gage of deposite</p>
                   <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
                     <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full flex items-center outline-none h-11">
-                      <label htmlFor="region"></label>
+                      <label htmlFor="deposite"></label>
                       <select
                         className="w-full border-none outline-none"
                         required>
