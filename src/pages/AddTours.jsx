@@ -6,85 +6,87 @@ import { BiArrowBack } from "react-icons/bi";
 import uploadImg from "../assets/uploadImg.png";
 import { useTranslation } from "react-i18next";
 import { IoMdClose } from "react-icons/io";
+import { toast } from "react-toastify";
+import { auth, db, storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { addDoc, collection } from "firebase/firestore";
 
 // Initialization for ES Users
 
 const AddTours = () => {
   const { t, i18n } = useTranslation();
-  const { categoryId } = useParams();
   const navigate = useNavigate();
-
   const formRef = useRef();
+  const uuid = crypto.randomUUID();
+
   const [img1, setImg1] = useState();
-  const [img2, setImg2] = useState();
-  const [img3, setImg3] = useState();
+
+  function getDate() {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    return `${date}-${month}-${year}`;
+  }
 
   function handleChangeImg(e) {
-    console.log(e.target.files);
     setImg1(URL.createObjectURL(e.target.files[0]));
-    setImg2(URL.createObjectURL(e.target.files[1]));
-    setImg3(URL.createObjectURL(e.target.files[2]));
   }
 
   const handlerAddPoint = (e) => {
     e.preventDefault();
-    // const image = formRef?.current[0]?.value;
     const image1 = formRef?.current[1]?.files[0];
-    const image2 = formRef?.current[1]?.files[1];
-    const image3 = formRef?.current[1]?.files[2];
     const startingPrice = formRef?.current[2].value;
     const salePrice = formRef?.current[3].value;
-    const region = formRef?.current[4].value;
-    const city = formRef?.current[5].value;
-    const videoLink = formRef?.current[6].value;
-    const name = formRef?.current[7].value;
-    const convenienc = formRef?.current[8].value;
-    const smokingY = formRef?.current[9].value;
-    const smokingN = formRef?.current[10].value;
-    const alcaholY = formRef?.current[11].value;
-    const alcaholN = formRef?.current[12].value;
-    const petY = formRef?.current[13].value;
-    const petN = formRef?.current[14].value;
-    const onlyFamilyY = formRef?.current[15].value;
-    const onlyFamilyN = formRef?.current[16].value;
-    const musicY = formRef?.current[17].value;
-    const musicN = formRef?.current[18].value;
-    const partyN = formRef?.current[20].value;
-    const partyY = formRef?.current[19].value;
-    const phone = formRef?.current[21].value;
-    const message = formRef?.current[22].value;
+    const country = formRef?.current[4].value;
+    const videoLink = formRef?.current[5].value;
+    const name = formRef?.current[6].value;
+    const address = formRef?.current[7].value;
+    const phone = formRef?.current[8].value;
+    const message = formRef?.current[9].value;
 
-    const addPointResorts = {
-      image1,
-      image2,
-      image3,
-      startingPrice,
-      salePrice,
-      region,
-      city,
-      videoLink,
-      name,
-      convenienc,
-      smokingY,
-      smokingN,
-      alcaholY,
-      alcaholN,
-      petY,
-      petN,
-      onlyFamilyY,
-      onlyFamilyN,
-      musicY,
-      musicN,
-      partyN,
-      partyY,
-      phone,
-      message,
-      category: categoryId,
-    };
-
-    console.log(addPointResorts);
+    if (image1 == null) return;
+    try {
+      const docRef = collection(db, "tours");
+      const storageRef = ref(storage, `toursImages/${uuid}`);
+      const uploadTask = uploadBytesResumable(storageRef, image1);
+      uploadTask.on(
+        () => {
+          toast.error("Image not uploaded");
+        },
+        async () => {
+          await getDownloadURL(uploadTask.snapshot.ref).then(
+            async (downloadURL) => {
+              await addDoc(docRef, {
+                id: uuid,
+                image: downloadURL,
+                startingPrice,
+                salePrice,
+                name,
+                videoLink,
+                country,
+                phone,
+                address,
+                message,
+                category: "tours",
+                userId: auth?.currentUser?.uid,
+                createdData: getDate(),
+              });
+            }
+          );
+          // window.location.reload(false);
+        }
+      );
+      // setLoading(false);
+      toast.success("Successfully added!");
+      // navigate("/");
+      // window.location.reload(false);
+    } catch (error) {
+      // setLoading(false);
+      toast.error(error.message);
+      console.log(error.message);
+    }
   };
-
   return (
     <div className="container">
       <div className="bg-[#F7F7FA] py-[2px] px-2 mb-4 w-10 h-10 flex items-center rounded-md">
@@ -120,7 +122,6 @@ const AddTours = () => {
                 id="upload-file"
                 type="file"
                 multiple="multiple"
-                accept="image/jpeg, image/png, image/jpg"
                 className="hidden"
                 onChange={handleChangeImg}
               />
@@ -165,8 +166,9 @@ const AddTours = () => {
                       <select
                         className="w-full border-none outline-none"
                         required>
-                        <option value="10">Turkey</option>
-                        <option value="20">Argentina</option>
+                        <option value="turkey">Turkey</option>
+                        <option value="argentina">Argentina</option>
+                        <option value="UAE">United Arab Emirates</option>
                       </select>
                     </div>
                   </div>
@@ -186,32 +188,6 @@ const AddTours = () => {
                 <span
                   className="absolute top-0 right-0 cursor-pointer"
                   onClick={() => setImg1()}>
-                  <IoMdClose size={20} color="#575757" />
-                </span>
-              </div>
-              <div className={`relative ${img2 ? "inline" : "hidden"}`}>
-                <img
-                  src={img2}
-                  alt="img"
-                  id="upload-file"
-                  className="w-[80px] h-[48px] object-cover"
-                />
-                <span
-                  className="absolute top-0 right-0 cursor-pointer"
-                  onClick={() => setImg2()}>
-                  <IoMdClose size={20} color="#575757" />
-                </span>
-              </div>
-              <div className={`relative ${img3 ? "inline" : "hidden"}`}>
-                <img
-                  src={img3}
-                  alt="img"
-                  id="upload-file"
-                  className="w-[80px] h-[48px] object-cover"
-                />
-                <span
-                  className="absolute top-0 right-0 cursor-pointer"
-                  onClick={() => setImg3()}>
                   <IoMdClose size={20} color="#575757" />
                 </span>
               </div>

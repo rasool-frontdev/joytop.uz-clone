@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { useTranslation } from "react-i18next";
+import { useGetData } from "../hooks/useGetData";
 
 const Helmet = lazy(() => import("../components/Helmet"));
 const CategoryPages = lazy(() => import("../components/CategoryPages"));
@@ -8,15 +9,15 @@ const CategoryTitle = lazy(() => import("../components/CategoryTitle"));
 const Cards = lazy(() => import("../components/Cards"));
 
 const Tours = () => {
+  const { data: data, loading: loading } = useGetData("tours");
   const { t, i18n } = useTranslation();
   return (
     <div>
       <Helmet title={t("Tours")} />
       <CategoryPages />
       <FilterCard />
-      <CategoryTitle />
-      <Cards />
-      Tours
+      <CategoryTitle title="tours" />
+      <Cards data={data} />
     </div>
   );
 };
