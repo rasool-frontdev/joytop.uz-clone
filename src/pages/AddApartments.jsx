@@ -446,7 +446,7 @@ const AddApartments = () => {
                   type="radio"
                   id="smoking"
                   name="smoking"
-                  defaultValue={true}
+                  defaultValue={false}
                   checked={smoking === true}
                   onChange={() => setSmoking(true)}
                   className="mr-1 hover:cursor-pointer"
@@ -558,7 +558,7 @@ const AddApartments = () => {
                   type="radio"
                   id="music"
                   name="music"
-                  defaultValue={true}
+                  defaultValue={false}
                   checked={music === true}
                   onChange={() => setMusic(true)}
                   className="mr-1 mt-2 hover:cursor-pointer"
@@ -617,7 +617,7 @@ const AddApartments = () => {
                       <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] outline-none ">
                         <label htmlFor="convenienc"></label>
                         <select className="w-full border-none outline-none">
-                          <option value="wifu">Wi-Fi internet</option>
+                          <option value="wi-fi">Wi-Fi internet</option>
                           <option value="ps4">Playstation 4 </option>
                           <option value="ps5">Playstation 5 </option>
                           <option value="ac">AC</option>

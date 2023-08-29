@@ -4,7 +4,8 @@ import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: `${import.meta.env}`,
+  // apiKey: `${import.meta.env}`,
+  apiKey: "AIzaSyBmEiNkJmWDxXJJbqCOt7zxlrHgfpQ2Oto",
   authDomain: "joytopuz.firebaseapp.com",
   projectId: "joytopuz",
   storageBucket: "joytopuz.appspot.com",
