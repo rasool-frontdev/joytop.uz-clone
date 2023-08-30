@@ -45,20 +45,6 @@ const AddExtreme = () => {
     const phone = formRef?.current[8].value;
     const message = formRef?.current[9].value;
 
-    // const data = {
-    //   image1,
-    //   startingPrice,
-    //   salePrice,
-    //   type,
-    //   videoLink,
-    //   name,
-    //   city,
-    //   message,
-    //   phone,
-    // };
-
-    // console.log(data);
-
     if (image1 == null) return;
     try {
       const docRef = collection(db, "extreme");
