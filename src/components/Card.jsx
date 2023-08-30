@@ -98,14 +98,14 @@ const Card = (item) => {
             </>
           )}
 
-        {/* {location.pathname !== "/tours" && (
+        {location.pathname !== "/tours" && location.pathname !== "/extreme" && (
           <p className="flex items-center gap-2 mt-[10px] mb-[13px] text-[#ff7e47]">
             <SlLocationPin color="#ff7e47" />
             {item?.item?.region[0].toUpperCase() +
               item.item.region.slice(1)},{" "}
             {item?.item?.city[0].toUpperCase() + item.item.city.slice(1)}
           </p>
-        )} */}
+        )}
         <p className="absolute bottom-4 left-4 text-[12px]">
           {item?.item?.createdData}
         </p>
