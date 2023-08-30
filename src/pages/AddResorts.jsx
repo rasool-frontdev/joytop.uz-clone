@@ -31,15 +31,11 @@ const AddResorts = () => {
   }
 
   function handleChangeImg(e) {
-    // console.log(e.target.files);
     setImg1(URL?.createObjectURL(e?.target?.files[0]));
-    // setImg2(URL?.createObjectURL(e?.target?.files[1]));
-    // setImg3(URL?.createObjectURL(e?.target?.files[2]));
   }
 
   const handlerAddPoint = (e) => {
     e.preventDefault();
-    // const image = formRef?.current[0]?.value;
     const image1 = formRef?.current[1]?.files[0];
     const startingPrice = formRef?.current[2].value;
     const salePrice = formRef?.current[3].value;
@@ -62,8 +58,6 @@ const AddResorts = () => {
     const partyY = formRef?.current[19].value;
     const phone = formRef?.current[21].value;
     const message = formRef?.current[22].value;
-
-    console.log(image1);
 
     if (image1 == null) return;
 
@@ -121,62 +115,6 @@ const AddResorts = () => {
       toast.error(error.message);
       console.log(error.message);
     }
-
-    // try {
-    //   const docRef = collection(db, "resorts");
-    //   const storageRef = ref(storage, `resortsImages/${uuid}`);
-    //   const uploadTask = uploadBytesResumable(storageRef, image1);
-    //   uploadTask.on(
-    //     () => {
-    //       toast.error("Image not uploaded");
-    //     },
-    //     async () => {
-    //       await getDownloadURL(uploadTask.snapshot.ref).then(
-    //         async (downloadURL) => {
-    //           await addDoc(docRef, {
-    //             id: uuid,
-    //             image: downloadURL,
-    //             startingPrice,
-    //             salePrice,
-    //             region,
-    //             city,
-    //             videoLink,
-    //             name,
-    //             convenienc,
-    //             smokingY,
-    //             smokingN,
-    //             alcaholY,
-    //             alcaholN,
-    //             petY,
-    //             petN,
-    //             onlyFamilyY,
-    //             onlyFamilyN,
-    //             musicY,
-    //             musicN,
-    //             partyN,
-    //             partyY,
-    //             phone,
-    //             message,
-    //             category: "resorts",
-    //             type: "Rent",
-    //             userId: auth?.currentUser?.uid,
-    //             createdData: getDate(),
-    //           });
-    //           console.log("render 1");
-    //         }
-    //       );
-    //       console.log("render 2");
-    //     }
-    //   );
-    //   // setLoading(false);
-    //   toast.success("Product created successfully");
-    //   // navigate("/dashboard/all-products");
-    // } catch (error) {
-    //   // setLoading(false);
-    //   console.log(error.message);
-    //   toast.error(error.message);
-    //   console.log("render error");
-    // }
   };
 
   return (

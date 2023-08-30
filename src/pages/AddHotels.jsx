@@ -52,31 +52,6 @@ const AddHotels = () => {
     const message = formRef?.current[22].value;
     const phone = formRef?.current[21].value;
 
-    // let data = {
-    //   id: uuid,
-    //   // image: downloadURL,
-    //   image1,
-    //   startingPrice,
-    //   salePrice,
-    //   region,
-    //   city,
-    //   videoLink,
-    //   name,
-    //   message,
-    //   convenienc,
-    //   smoking,
-    //   alcahol,
-    //   pet,
-    //   family,
-    //   music,
-    //   party,
-    //   phone,
-    //   start,
-    //   category: "apartments",
-    //   userId: auth?.currentUser?.uid,
-    //   createdData: getDate(),
-    // };
-    // console.log(data);
     if (image1 == null) return;
     try {
       const docRef = collection(db, "hotels");

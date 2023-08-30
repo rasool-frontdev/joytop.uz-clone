@@ -31,7 +31,6 @@ const Navbar = () => {
       navigate("/login");
     } catch (error) {
       toast.error(t("Something went wrong!" + error.message));
-      console.log(error.message);
     }
   };
 
