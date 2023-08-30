@@ -6,84 +6,101 @@ import { BiArrowBack } from "react-icons/bi";
 import uploadImg from "../assets/uploadImg.png";
 import { useTranslation } from "react-i18next";
 import { IoMdClose } from "react-icons/io";
+import { toast } from "react-toastify";
+import { auth, db, storage } from "../firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 // Initialization for ES Users
 
 const AddExtreme = () => {
   const { t, i18n } = useTranslation();
-  const { categoryId } = useParams();
   const navigate = useNavigate();
   const formRef = useRef();
+  const uuid = crypto.randomUUID();
+
   const [img1, setImg1] = useState();
-  const [img2, setImg2] = useState();
-  const [img3, setImg3] = useState();
+
+  function getDate() {
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    return `${date}-${month}-${year}`;
+  }
 
   function handleChangeImg(e) {
-    console.log(e.target.files);
     setImg1(URL.createObjectURL(e.target.files[0]));
-    setImg2(URL.createObjectURL(e.target.files[1]));
-    setImg3(URL.createObjectURL(e.target.files[2]));
   }
 
   const handlerAddPoint = (e) => {
     e.preventDefault();
-    // const image = formRef?.current[0]?.value;
     const image1 = formRef?.current[1]?.files[0];
-    const image2 = formRef?.current[1]?.files[1];
-    const image3 = formRef?.current[1]?.files[2];
     const startingPrice = formRef?.current[2].value;
     const salePrice = formRef?.current[3].value;
-    const region = formRef?.current[4].value;
-    const city = formRef?.current[5].value;
-    const videoLink = formRef?.current[6].value;
-    const name = formRef?.current[7].value;
-    const convenienc = formRef?.current[8].value;
-    const smokingY = formRef?.current[9].value;
-    const smokingN = formRef?.current[10].value;
-    const alcaholY = formRef?.current[11].value;
-    const alcaholN = formRef?.current[12].value;
-    const petY = formRef?.current[13].value;
-    const petN = formRef?.current[14].value;
-    const onlyFamilyY = formRef?.current[15].value;
-    const onlyFamilyN = formRef?.current[16].value;
-    const musicY = formRef?.current[17].value;
-    const musicN = formRef?.current[18].value;
-    const partyN = formRef?.current[20].value;
-    const partyY = formRef?.current[19].value;
-    const phone = formRef?.current[21].value;
-    const message = formRef?.current[22].value;
+    const videoLink = formRef?.current[4].value;
+    const type = formRef?.current[5].value;
+    const region = formRef?.current[6].value;
+    const city = formRef?.current[7].value;
+    const phone = formRef?.current[8].value;
+    const message = formRef?.current[9].value;
 
-    const addPointResorts = {
-      image1,
-      image2,
-      image3,
-      startingPrice,
-      salePrice,
-      region,
-      city,
-      videoLink,
-      name,
-      convenienc,
-      smokingY,
-      smokingN,
-      alcaholY,
-      alcaholN,
-      petY,
-      petN,
-      onlyFamilyY,
-      onlyFamilyN,
-      musicY,
-      musicN,
-      partyN,
-      partyY,
-      phone,
-      message,
-      category: categoryId,
-    };
+    // const data = {
+    //   image1,
+    //   startingPrice,
+    //   salePrice,
+    //   type,
+    //   videoLink,
+    //   name,
+    //   city,
+    //   message,
+    //   phone,
+    // };
 
-    console.log(addPointResorts);
+    // console.log(data);
+
+    if (image1 == null) return;
+    try {
+      const docRef = collection(db, "extreme");
+      const storageRef = ref(storage, `extremeImages/${uuid}`);
+      const uploadTask = uploadBytesResumable(storageRef, image1);
+      uploadTask.on(
+        () => {
+          toast.error("Image not uploaded");
+        },
+        async () => {
+          await getDownloadURL(uploadTask.snapshot.ref).then(
+            async (downloadURL) => {
+              await addDoc(docRef, {
+                id: uuid,
+                image: downloadURL,
+                startingPrice,
+                salePrice,
+                type,
+                videoLink,
+                region,
+                city,
+                message,
+                phone,
+                category: "extreme",
+                userId: auth?.currentUser?.uid,
+                createdData: getDate(),
+              });
+            }
+          );
+          // window.location.reload(false);
+        }
+      );
+      // setLoading(false);
+      toast.success("Successfully added!");
+      // navigate("/");
+      // window.location.reload(false);
+    } catch (error) {
+      // setLoading(false);
+      toast.error(error.message);
+      console.log(error.message);
+    }
   };
-
   return (
     <div className="container">
       <div className="bg-[#F7F7FA] py-[2px] px-2 mb-4 w-10 h-10 flex items-center rounded-md">
@@ -119,7 +136,6 @@ const AddExtreme = () => {
                 id="upload-file"
                 type="file"
                 multiple="multiple"
-                accept="image/jpeg, image/png, image/jpg"
                 className="hidden"
                 onChange={handleChangeImg}
               />
@@ -153,24 +169,6 @@ const AddExtreme = () => {
                   <span className="pr-2">UZS</span>
                 </div>
               </div>
-              <div>
-                <div>
-                  <p className="text-[#575757] text-4">
-                    Gage of deposite (optional)
-                  </p>
-                  <div className="flex justify-between items-center border hover:border-[#ff7e47] rounded-md border-[#e5e5e5] text-sm mt-1">
-                    <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full flex items-center outline-none h-11">
-                      <label htmlFor="region"></label>
-                      <select
-                        className="w-full border-none outline-none"
-                        required>
-                        <option value="10">10%</option>
-                        <option value="20">20%</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           {img1 && (
@@ -185,32 +183,6 @@ const AddExtreme = () => {
                 <span
                   className="absolute top-0 right-0 cursor-pointer"
                   onClick={() => setImg1()}>
-                  <IoMdClose size={20} color="#575757" />
-                </span>
-              </div>
-              <div className={`relative ${img2 ? "inline" : "hidden"}`}>
-                <img
-                  src={img2}
-                  alt="img"
-                  id="upload-file"
-                  className="w-[80px] h-[48px] object-cover"
-                />
-                <span
-                  className="absolute top-0 right-0 cursor-pointer"
-                  onClick={() => setImg2()}>
-                  <IoMdClose size={20} color="#575757" />
-                </span>
-              </div>
-              <div className={`relative ${img3 ? "inline" : "hidden"}`}>
-                <img
-                  src={img3}
-                  alt="img"
-                  id="upload-file"
-                  className="w-[80px] h-[48px] object-cover"
-                />
-                <span
-                  className="absolute top-0 right-0 cursor-pointer"
-                  onClick={() => setImg3()}>
                   <IoMdClose size={20} color="#575757" />
                 </span>
               </div>
@@ -247,6 +219,9 @@ const AddExtreme = () => {
                       className="w-full border-none outline-none"
                       required>
                       <option value="extrem-bridge">Extreme Bridge</option>
+                      <option value="archery">ARCHERY</option>
+                      <option value="carting">Carting</option>
+                      <option value="climbing">ROCK CLIMBING</option>
                       <option value="zipline">Zipline</option>
                     </select>
                   </div>
@@ -266,7 +241,17 @@ const AddExtreme = () => {
                     <select
                       className="w-full border-none outline-none"
                       required>
-                      <option value="region">Region</option>
+                      <option value="">Choose region</option>
+                      <option value="tashkent city">Tashkent city</option>
+                      <option value="tashkent region">Tashkent region</option>
+                      <option value="andijan region">Andijan region</option>
+                      <option value="bukhara region">Bukhara region</option>
+                      <option value="jizzakh region">Jizzakh region</option>
+                      <option value="karakalpakstan">Karakalpakstan</option>
+                      <option value="kashkadarya">Kashkadarya region</option>
+                      <option value="navoi region">Navoi region</option>
+                      <option value="namangan region">Namangan region</option>
+                      <option value="Samarkand region">Samarkand region</option>
                     </select>
                   </div>
                 </div>
@@ -277,7 +262,18 @@ const AddExtreme = () => {
                   <div className="border-none  rounded-md text-[14px] text-[#575757] py-[7px] pl-[11px] w-full  flex items-center h-11">
                     <label htmlFor="street"></label>
                     <select className="w-full border-none outline-none">
-                      <option value="street">Street</option>
+                      <option value="">Choose</option>
+                      <option value="tashkent">Tashkent</option>
+                      <option value="yakkasaray">Yakkasaray</option>
+                      <option value="mirabad">Mirabad</option>
+                      <option value="sergely">Sergely</option>
+                      <option value="mirzo-ulugbek">Mirzo-Ulugbek</option>
+                      <option value="bekabad">Bekabad</option>
+                      <option value="boston">Boston</option>
+                      <option value="boka">Boka</option>
+                      <option value="kibray">Kibray</option>
+                      <option value="parkent">Parkent</option>
+                      <option value="angren">Angren</option>
                     </select>
                   </div>
                 </div>
@@ -311,7 +307,7 @@ const AddExtreme = () => {
           </div>
         </div>
         <div>
-          <h1 className="text-2xl text-[#444] font-semibold mt-[-144px]">
+          <h1 className="text-2xl text-[#444] font-semibold mt-0">
             Additional information
           </h1>
           <div className=" gap-x-8 pt-2">
@@ -342,5 +338,4 @@ const AddExtreme = () => {
     </div>
   );
 };
-
 export default AddExtreme;

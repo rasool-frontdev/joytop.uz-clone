@@ -18,7 +18,6 @@ const Apartments = () => {
       <FilterCard />
       <CategoryTitle title="Villas" />
       <Cards data={data} />
-      <h1>Apartments</h1>
     </>
   );
 };
