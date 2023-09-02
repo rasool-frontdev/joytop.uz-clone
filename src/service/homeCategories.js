@@ -1,44 +1,57 @@
+import villasImg from "../assets/image/villas.jpg";
+import villasIcon from "../assets/image/villas-icon.svg";
+import apartmentsImg from "../assets/image/apartments.jpg";
+import apartmentsIcon from "../assets/image/home-icon.b4f47182.svg";
+import hotelsImg from "../assets/image/hotel.jpg";
+import hotelsIcon from "../assets/image/hotel-icon.svg";
+import resortsImg from "../assets/image/resort.jpg";
+import resortsIcon from "../assets/image/resort-icon.svg";
+import toursImg from "../assets/image/tour.jpg";
+import tourIcon from "../assets/image/tour-icon.svg";
+import extremeImg from "../assets/image/extreme.jpg";
+import extremeIcon from "../assets/image/extreme-icon.svg";
+
 export const homeCategories = [
   {
     id: "villas",
     title: "Villas",
-    img: "http://joytop.mbs-edu.uz/static/media/dacha.a1324d19.jpg",
+    img: villasImg,
     bg: "bg-[#ff7e47]",
-    icon: "http://joytop.mbs-edu.uz/static/media/dacha-icon.58816c25.svg",
+    icon: villasIcon,
   },
   {
     id: "apartments",
     title: "Apartment",
-    img: "http://joytop.mbs-edu.uz/static/media/home.9ca6dd0b.jpg",
+    img: apartmentsImg,
     bg: "bg-[#426bbf]",
-    icon: "http://joytop.mbs-edu.uz/static/media/home-icon.b4f47182.svg",
+    icon: apartmentsIcon,
   },
   {
     id: "hotels",
     title: "Hotels",
-    img: "http://joytop.mbs-edu.uz/static/media/hotel.81c4ea96.jpg",
+    img: hotelsImg,
     bg: "bg-[#9847ff]",
-    icon: "http://joytop.mbs-edu.uz/static/media/hotel-icon.afcd9dc6.svg",
+    icon: hotelsIcon,
   },
   {
     id: "resorts",
     title: "Resorts",
-    img: "http://joytop.mbs-edu.uz/static/media/resort.a31d5761.jpg",
+    img: resortsImg,
     bg: "bg-[#ff5977]",
-    icon: "http://joytop.mbs-edu.uz/static/media/resort-icon.ff90aee3.svg",
+    icon: resortsIcon,
   },
   {
     id: "tours",
     title: "Tours",
-    img: "http://joytop.mbs-edu.uz/static/media/tour.266eab44.jpg",
+    img: toursImg,
     bg: "bg-[#ffD159]",
-    icon: "http://joytop.mbs-edu.uz/static/media/tour-icon.de48103b.svg",
+    icon: tourIcon,
   },
   {
     id: "extreme",
     title: "Ekstreme",
-    img: "http://joytop.mbs-edu.uz/static/media/extreme.e1c0ba9b.jpg",
+    img: extremeImg,
     bg: "bg-[#45d891]",
-    icon: "http://joytop.mbs-edu.uz/static/media/extreme-icon.a58277ba.svg",
+    icon: extremeIcon,
   },
 ];
