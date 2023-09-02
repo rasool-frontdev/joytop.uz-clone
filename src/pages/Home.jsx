@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div>
       <Helmet title={t("Main")} />
-      <div className="gap-4 md:gap-8 px-4 lg:px-0 grid grid-cols-1 justify-items-center md:grid-cols-3 pb-10">
+      <div className="gap-8 md:gap-8 px-4 lg:px-0 grid grid-cols-1 justify-items-center md:grid-cols-3 pb-10">
         <HomeCards />
       </div>
     </div>

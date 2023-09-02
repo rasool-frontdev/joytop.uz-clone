@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { homeCategories } from "../service/homeCategories";
 
 const HomeCard = ({ category }) => {
   return (
