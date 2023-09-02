@@ -13,7 +13,7 @@ import { addDoc, collection } from "firebase/firestore";
 // Initialization for ES Users
 
 const AddHotels = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const formRef = useRef();
   const uuid = crypto.randomUUID();
@@ -89,13 +89,11 @@ const AddHotels = () => {
               });
             }
           );
-          // window.location.reload(false);
         }
       );
       // setLoading(false);
       toast.success("Successfully added!");
-      // navigate("/");
-      // window.location.reload(false);
+      navigate("/");
     } catch (error) {
       // setLoading(false);
       toast.error(error.message);

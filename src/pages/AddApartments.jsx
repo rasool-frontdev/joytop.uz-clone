@@ -10,10 +10,8 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db, storage } from "../firebase";
 
-// Initialization for ES Users
-
 const AddApartments = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const formRef = useRef();
   const uuid = crypto.randomUUID();
@@ -53,52 +51,47 @@ const AddApartments = () => {
     const singleBed = formRef?.current[11].value;
     const doubleBed = formRef?.current[12].value;
     const totalArea = formRef?.current[13].value;
-    // const onlyFamilyY = formRef?.current[15].value;
-    // const onlyFamilyN = formRef?.current[16].value;
-    // const musicY = formRef?.current[24].value;
-    // const musicN = formRef?.current[25].value;
-    // const partyY = formRef?.current[23].value;
     const convenienc = formRef?.current[26].value;
     const phone = formRef?.current[27].value;
     const name = formRef?.current[15].value;
     const message = formRef?.current[28].value;
 
-    let data = {
-      type,
-      id: uuid,
-      // image: downloadURL,
-      image1,
-      // onlyFamilyY,
-      // onlyFamilyN,
-      // musicY,
-      // musicN,
-      // partyN,
-      // partyY,
-      startingPrice,
-      salePrice,
-      region,
-      totalArea,
-      deposite,
-      city,
-      videoLink,
-      countRoom,
-      name,
-      convenienc,
-      smoking,
-      allArea,
-      alcahol,
-      pet,
-      family,
-      music,
-      party,
-      phone,
-      singleBed,
-      doubleBed,
-      message,
-      category: "apartments",
-      userId: auth?.currentUser?.uid,
-      createdData: getDate(),
-    };
+    // let data = {
+    //   type,
+    //   id: uuid,
+    //   // image: downloadURL,
+    //   image1,
+    //   // onlyFamilyY,
+    //   // onlyFamilyN,
+    //   // musicY,
+    //   // musicN,
+    //   // partyN,
+    //   // partyY,
+    //   startingPrice,
+    //   salePrice,
+    //   region,
+    //   totalArea,
+    //   deposite,
+    //   city,
+    //   videoLink,
+    //   countRoom,
+    //   name,
+    //   convenienc,
+    //   smoking,
+    //   allArea,
+    //   alcahol,
+    //   pet,
+    //   family,
+    //   music,
+    //   party,
+    //   phone,
+    //   singleBed,
+    //   doubleBed,
+    //   message,
+    //   category: "apartments",
+    //   userId: auth?.currentUser?.uid,
+    //   createdData: getDate(),
+    // };
     if (image1 == null) return;
 
     try {
@@ -143,13 +136,10 @@ const AddApartments = () => {
               });
             }
           );
-          // window.location.reload(false);
         }
       );
-      // setLoading(false);
       toast.success("Successfully added!");
-      // navigate("/");
-      // window.location.reload(false);
+      navigate("/");
     } catch (error) {
       // setLoading(false);
       toast.error(error.message);
@@ -158,7 +148,7 @@ const AddApartments = () => {
   };
 
   return (
-    <div className="container">
+    <section className="container">
       <div className="bg-[#F7F7FA] py-[2px] px-2 mb-4 w-10 h-10 flex items-center rounded-md">
         <BiArrowBack color="#575757" size={25} onClick={() => navigate(-1)} />
       </div>
@@ -685,7 +675,7 @@ const AddApartments = () => {
           </button>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 

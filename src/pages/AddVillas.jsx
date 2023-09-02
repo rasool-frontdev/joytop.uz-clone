@@ -10,10 +10,8 @@ import { addDoc, collection } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { auth, db, storage } from "../firebase";
 
-// Initialization for ES Users
-
 const AddVillas = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const formRef = useRef();
   const uuid = crypto.randomUUID();
@@ -36,8 +34,6 @@ const AddVillas = () => {
 
   function handleChangeImg(e) {
     setImg1(URL?.createObjectURL(e?.target?.files[0]));
-    // setImg2(URL?.createObjectURL(e?.target?.files[1]));
-    // setImg3(URL?.createObjectURL(e?.target?.files[2]));
   }
 
   const handlerAddPoint = (e) => {
@@ -108,13 +104,11 @@ const AddVillas = () => {
               });
             }
           );
-          // window.location.reload(false);
         }
       );
       // setLoading(false);
       toast.success("Successfully added!");
-      // navigate("/");
-      // window.location.reload(false);
+      navigate("/");
     } catch (error) {
       // setLoading(false);
       toast.error(error.message);

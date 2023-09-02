@@ -8,7 +8,7 @@ const CategoryTitle = lazy(() => import("../components/CategoryTitle"));
 const Cards = lazy(() => import("../components/Cards"));
 
 const Apartments = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { data: data, loading: loading } = useGetData("apartments");
   console.log(data);
   return (

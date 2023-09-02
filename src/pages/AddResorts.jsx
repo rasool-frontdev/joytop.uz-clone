@@ -103,7 +103,6 @@ const AddResorts = () => {
               });
             }
           );
-          // window.location.reload(false);
         }
       );
       // setLoading(false);

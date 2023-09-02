@@ -1,5 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { homeCategories } from "../service/homeCategories";
+import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { MdLocationPin } from "react-icons/md";
 import { BiArrowBack } from "react-icons/bi";
@@ -11,10 +10,8 @@ import { auth, db, storage } from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
-// Initialization for ES Users
-
 const AddExtreme = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const formRef = useRef();
   const uuid = crypto.randomUUID();
@@ -74,13 +71,11 @@ const AddExtreme = () => {
               });
             }
           );
-          // window.location.reload(false);
         }
       );
       // setLoading(false);
       toast.success("Successfully added!");
-      // navigate("/");
-      // window.location.reload(false);
+      navigate("/");
     } catch (error) {
       // setLoading(false);
       toast.error(error.message);
