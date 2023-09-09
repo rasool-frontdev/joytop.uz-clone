@@ -2,7 +2,7 @@ import { FiFilter } from "react-icons/fi";
 
 const FilterCard = () => {
   return (
-    <div className="hidden md:block">
+    <div className="hidden lg:block">
       <div className="mt-[64px] mb-[54px]">
         <form className="flex justify-between">
           <select>

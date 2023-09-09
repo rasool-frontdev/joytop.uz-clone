@@ -13,7 +13,7 @@ const Villas = () => {
   const { data: data, loading: loading } = useGetData("villas");
   console.log(data);
   return (
-    <div>
+    <div className="px-4 py-0 xl:px-0">
       <Helmet title={t("Villas")} />
       <CategoryPages />
       <FilterCard />

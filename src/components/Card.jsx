@@ -4,12 +4,12 @@ import { useLocation } from "react-router-dom";
 const Card = (item) => {
   const location = useLocation();
   return (
-    <div className="xxs:w-[520px] sm:w-[345px] sm:h-[480px] md:w-full md:h-[480px] m-1 p-4 shadow-[-5px_0_10px_5px_#f4f4f4] rounded-md relative">
+    <div className="max-w-[524px] w-full h-[488px] md:w-full md:h-[480px] m-1 p-4 shadow-[-5px_0_10px_5px_#f4f4f4] rounded-md relative">
       <div className="text-[#575757] text-normal">
         <img
           src={item?.item?.image}
           alt="img"
-          className="xxs:w-full xxs:h-[180px] sm:w-[352px] md:w-[100%] md:h-[160px] rounded-md mb-4 object-cover"
+          className="max-w-[524px] w-full h-[180px] md:h-[160px] rounded-md mb-4 object-cover"
         />
         <div className="flex justify-between mb-4 text-[18px]">
           {location.pathname !== "/tours" && <h1 className="">Rent</h1>}

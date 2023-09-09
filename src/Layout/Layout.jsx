@@ -47,7 +47,7 @@ const Layout = () => {
       <div className="">
         <Suspense fallback={<h1>Loading...</h1>}>
           <Navbar />
-          <div className="container xss:max-w-[576px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1140px] pt-[146px]">
+          <div className="container pt-[146px]">
             <Outlet />
           </div>
           <ModalPoint />
