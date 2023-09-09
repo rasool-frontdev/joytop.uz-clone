@@ -47,7 +47,7 @@ const Resorts = () => {
   // }, [allCategory]);
 
   return (
-    <div>
+    <div className="px-4 py-0 xl:px-0">
       <Helmet title={t("Resorts")} />
       <CategoryPages />
       <FilterCard />

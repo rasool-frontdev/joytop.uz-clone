@@ -12,7 +12,7 @@ const Tours = () => {
   const { data: data, loading: loading } = useGetData("tours");
   const { t, i18n } = useTranslation();
   return (
-    <div>
+    <div className="px-4 py-0 xl:px-0">
       <Helmet title={t("Tours")} />
       <CategoryPages />
       <FilterCard />

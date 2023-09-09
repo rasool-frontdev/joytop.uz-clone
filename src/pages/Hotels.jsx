@@ -13,7 +13,7 @@ const Hotels = () => {
   const { t, i18n } = useTranslation();
 
   return (
-    <div>
+    <div className="px-4 py-0 xl:px-0">
       <Helmet title={t("Hotels")} />
       <CategoryPages />
       <FilterCard />
