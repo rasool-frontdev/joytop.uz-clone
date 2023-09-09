@@ -67,7 +67,7 @@ const Navbar = () => {
                 </NavLink>
                 <div className="flex items-center gap-6">
                   <NavLink to="login">
-                    <button className="hidden sm:block px-4 h-[33px] text-[14px] border-[2px] border-[#ff7e47] rounded-[6px]  text-[#ff7e47]">
+                    <button className="hidden xs:block px-4 h-[33px] text-[14px] border-[2px] border-[#ff7e47] rounded-[6px]  text-[#ff7e47]">
                       {t("About Us")}
                     </button>
                   </NavLink>
