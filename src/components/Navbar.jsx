@@ -62,7 +62,7 @@ const Navbar = () => {
                   <img
                     src="http://joytop.mbs-edu.uz/static/media/logo.e6fa5e4a.svg"
                     alt="logo"
-                    className="w-[125px] h-[35px]"
+                    className="w-[125px] h-[25px]"
                   />
                 </NavLink>
                 <div className="flex items-center gap-6">
