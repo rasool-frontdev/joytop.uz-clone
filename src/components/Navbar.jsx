@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { BiChevronDown, BiX } from "react-icons/bi";
 import { useEffect, useState } from "react";
@@ -8,7 +8,6 @@ import { auth } from "../firebase";
 import { toast } from "react-toastify";
 import { userSignOut } from "../slice/auth";
 import { useTranslation } from "react-i18next";
-import i18n from "../i18n";
 import languages from "../locales/languages";
 import { setToggle } from "../slice/addPoint";
 
@@ -22,6 +21,7 @@ const Navbar = () => {
 
   const [toggleNav, setToggleNav] = useState(false);
   const [toggleLang, setToggleLang] = useState(false);
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -32,6 +32,11 @@ const Navbar = () => {
     } catch (error) {
       toast.error(t("Something went wrong!" + error.message));
     }
+  };
+
+  const addPointOnMobile = () => {
+    dispatch(setToggle());
+    dispatch(setToggleNav((prev) => !prev));
   };
 
   useEffect(() => {
@@ -60,9 +65,9 @@ const Navbar = () => {
                     className="w-[125px] h-[35px]"
                   />
                 </NavLink>
-                <div className="flex items-center">
-                  <NavLink to="login" className="mr-4">
-                    <button className="px-4 h-[33px] text-[14px] border-[2px] border-[#ff7e47] rounded-[6px]  text-[#ff7e47]">
+                <div className="flex items-center gap-6">
+                  <NavLink to="login">
+                    <button className="hidden sm:block px-4 h-[33px] text-[14px] border-[2px] border-[#ff7e47] rounded-[6px]  text-[#ff7e47]">
                       {t("About Us")}
                     </button>
                   </NavLink>
@@ -77,7 +82,6 @@ const Navbar = () => {
                   </div>
                   <div className="hidden md:flex gap-4 items-center text-center">
                     <span className="relative tracking-[1px]">
-                      {/* {response !== null && response.name} */}
                       <h6 className="after:content-[''] after:absolute hover:text-[#]  bg-[#ff7e47] h-[2px] w-full"></h6>
                     </span>
                     <NavLink
@@ -155,10 +159,22 @@ const Navbar = () => {
                 onClick={() => setToggleNav((prev) => !prev)}
               />
             </div>
-            <div className="text-[#565656] my-30 mx-4">
-              <h1 className="mb-6 text-right text-base">{t("Add Point")}</h1>
-              <h1 className="mb-6 text-right text-base">{t("Profile")}</h1>
-              <h1 className="mb-6 text-right text-base">{t("Sign out")}</h1>
+            <div className="text-[#565656] my-30 mx-4 flex flex-col items-end">
+              <h1
+                className="mb-6 text-right text-base cursor-pointer"
+                onClick={addPointOnMobile}>
+                {t("Add Point")}
+              </h1>
+              <NavLink
+                className="mb-6 text-right text-base cursor-pointer"
+                to="/profile">
+                {t("Profile")}
+              </NavLink>
+              <NavLink
+                className="mb-6 text-right text-base cursor-pointer"
+                onClick={handleLogout}>
+                {t("Sign out")}
+              </NavLink>
             </div>
           </div>
         </div>

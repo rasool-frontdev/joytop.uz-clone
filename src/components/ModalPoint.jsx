@@ -18,8 +18,8 @@ const ModalPoint = () => {
   return (
     <>
       {toggle && (
-        <div className="fixed top-0 z-[99999] w-full h-[100%] backdrop-blur-sm">
-          <div className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 shadow-[0px_0_50px_5px_#ccc] rounded-[10px]">
+        <div className="fixed top-0 z-[99999] w-full h-full backdrop-blur-sm overflow-auto">
+          <div className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 shadow-[0px_0_50px_5px_#ccc] rounded-[10px] w-[320px] h-auto xs:w-[440px] xs:h-[465px]">
             <div className="bg-white rounded-lg px-[25px] py-[25px] h-auto">
               <div className="flex justify-end">
                 <IoMdClose
@@ -29,13 +29,13 @@ const ModalPoint = () => {
                   className="cursor-pointer"
                 />
               </div>
-              <h1 className="mb-8 text-[20px] text-lightGrey">
+              <h1 className="mb-6 text-[20px] text-lightGrey">
                 What do yo want to add?
               </h1>
-              <div className="grid justify-items-center gap-4 grid-cols-2">
+              <div className="grid justify-items-center gap-4 grid-cols-1 xs:grid-cols-2">
                 {homeCategories.map((category) => (
                   <button
-                    className={`${category.bg} cursor-pointer hover:scale-110 ease-in duration-300 w-[186px] h-[100px] flex justify-center items-center rounded-lg`}
+                    className={`${category.bg} cursor-pointer hover:scale-110 ease-in duration-300 w-full xs:w-[186px] h-[100px] flex justify-center items-center rounded-lg`}
                     key={category.id}
                     onClick={() => handleAddPoint(category.id)}
                     type="button">
