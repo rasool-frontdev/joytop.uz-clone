@@ -18,6 +18,7 @@ export const homeCategories = [
     img: villasImg,
     bg: "bg-[#ff7e47]",
     icon: villasIcon,
+    pathname: "/villas",
   },
   {
     id: "apartments",
@@ -25,6 +26,7 @@ export const homeCategories = [
     img: apartmentsImg,
     bg: "bg-[#426bbf]",
     icon: apartmentsIcon,
+    pathname: "/apartments",
   },
   {
     id: "hotels",
@@ -32,6 +34,7 @@ export const homeCategories = [
     img: hotelsImg,
     bg: "bg-[#9847ff]",
     icon: hotelsIcon,
+    pathname: "/hotels",
   },
   {
     id: "resorts",
@@ -39,6 +42,7 @@ export const homeCategories = [
     img: resortsImg,
     bg: "bg-[#ff5977]",
     icon: resortsIcon,
+    pathname: "/resorts",
   },
   {
     id: "tours",
@@ -46,6 +50,7 @@ export const homeCategories = [
     img: toursImg,
     bg: "bg-[#ffD159]",
     icon: tourIcon,
+    pathname: "/tours",
   },
   {
     id: "extreme",
@@ -53,5 +58,6 @@ export const homeCategories = [
     img: extremeImg,
     bg: "bg-[#45d891]",
     icon: extremeIcon,
+    pathname: "/extreme",
   },
 ];
