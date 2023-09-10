@@ -45,7 +45,7 @@ const Layout = () => {
         theme="light"
       />
       <div className="">
-        <Suspense fallback={<h1>Loading...</h1>}>
+        <Suspense fallback={<div className="loader"></div>}>
           <Navbar />
           <div className="container pt-[146px]">
             <Outlet />

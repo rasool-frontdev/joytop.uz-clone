@@ -28,7 +28,7 @@ function App() {
         <Route
           path="/"
           element={
-            <Suspense fallback={<h1>Loading...</h1>}>
+            <Suspense fallback={<div className="loader"></div>}>
               <Layout />
             </Suspense>
           }>
@@ -47,7 +47,6 @@ function App() {
           <Route path="/add-point/extreme" element={<AddExtreme />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

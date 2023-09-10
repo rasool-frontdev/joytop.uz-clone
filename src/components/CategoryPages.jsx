@@ -7,7 +7,7 @@ const CategoryPages = () => {
     <div className="hidden xl:block">
       <div className="flex">
         {homeCategories.map((category) => (
-          <>
+          <div key={category.id}>
             {location.pathname !== category.pathname && (
               <div>
                 <Link
@@ -34,7 +34,7 @@ const CategoryPages = () => {
                 </Link>
               </div>
             )}
-          </>
+          </div>
         ))}
       </div>
     </div>
