@@ -10,6 +10,7 @@ import { userSignOut } from "../slice/auth";
 import { useTranslation } from "react-i18next";
 import languages from "../locales/languages";
 import { setToggle } from "../slice/addPoint";
+import logo from "../assets/image/logo.svg";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -59,11 +60,7 @@ const Navbar = () => {
             <div className="">
               <div className="mb-[0px] py-[25px] mx-auto sm:mx-none max-w-[510px] sm:max-w-full flex justify-between items-center">
                 <NavLink to="/" className="flex items-center">
-                  <img
-                    src="http://joytop.mbs-edu.uz/static/media/logo.e6fa5e4a.svg"
-                    alt="logo"
-                    className="w-[125px] h-[25px]"
-                  />
+                  <img src={logo} alt="Logo" className="w-[125px] h-[25px]" />
                 </NavLink>
                 <div className="flex items-center gap-6">
                   <NavLink to="login">
