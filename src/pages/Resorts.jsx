@@ -11,7 +11,6 @@ const Cards = lazy(() => import("../components/Cards"));
 const Resorts = () => {
   const { t } = useTranslation();
   const { data: data, loading: loading } = useGetData("resorts");
-  console.log(data);
   // const [villas, setVillas] = useState([]);
   // const [apartments, setApartments] = useState([]);
   // const [hotels, setHotels] = useState([]);

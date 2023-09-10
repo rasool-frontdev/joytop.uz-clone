@@ -97,7 +97,6 @@ const AddHotels = () => {
     } catch (error) {
       // setLoading(false);
       toast.error(error.message);
-      console.log(error.message);
     }
   };
   return (

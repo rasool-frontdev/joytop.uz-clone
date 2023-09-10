@@ -11,7 +11,6 @@ const Cards = lazy(() => import("../components/Cards"));
 const Villas = () => {
   const { t, i18n } = useTranslation();
   const { data: data, loading: loading } = useGetData("villas");
-  console.log(data);
   return (
     <div className="px-4 py-0 xl:px-0">
       <Helmet title={t("Villas")} />
