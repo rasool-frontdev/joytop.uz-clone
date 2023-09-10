@@ -68,9 +68,8 @@ const Navbar = () => {
                       {t("About Us")}
                     </button>
                   </NavLink>
-                  <span className="relative tracking-[1px] cursor-default">
+                  <span className="relative tracking-[1px] cursor-default username ">
                     {userData?.firstName}
-                    <h6 className="after:content-[''] after:absolute hover:text-[#ff7e47] bg-[#ff7e47] h-[2px] w-full"></h6>
                   </span>
                   <div
                     className="md:hidden rounded-md bg-[#F7F7FA] hover:bg-[#E5E5EA] py-2 px-3"
