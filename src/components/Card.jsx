@@ -21,12 +21,15 @@ const Card = (item) => {
             {item?.item?.name[0].toUpperCase() + item?.item?.name.slice(1)}
           </p>
         )}
-        <p>
-          Type: {item?.item?.type[0].toUpperCase() + item?.item?.type.slice(1)}
-        </p>
-        {location.pathname === "/tours" && (
+        {location?.pathname !== "/hotels" &&
+          location?.pathname !== "/tours" && (
+            <p>
+              Type:{" "}
+              {item?.item?.type[0].toUpperCase() + item?.item?.type.slice(1)}
+            </p>
+          )}
+        {location?.pathname === "/tours" && (
           <h4 className="text-[18px] font-medium">
-            {" "}
             Country: {item?.item?.country}
           </h4>
         )}
