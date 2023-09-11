@@ -64,7 +64,7 @@ const Navbar = () => {
                   <img src={logo} alt="Logo" className="w-[125px] h-[25px]" />
                 </NavLink>
                 <div className="flex items-center gap-6">
-                  <NavLink to="login">
+                  <NavLink to="/about">
                     <button className="hidden xs:block px-4 h-[33px] text-[14px] border-[2px] border-[#ff7e47] rounded-[6px]  text-[#ff7e47]">
                       {t("About Us")}
                     </button>

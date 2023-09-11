@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import "react-toastify/dist/ReactToastify.css";
+import About from "./pages/About";
 
 const Home = lazy(() => import("./pages/Home"));
 const Villas = lazy(() => import("./pages/Villas"));
@@ -47,6 +48,7 @@ function App() {
           <Route path="/add-point/extreme" element={<AddExtreme />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
