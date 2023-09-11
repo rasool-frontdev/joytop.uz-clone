@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { registerUserSuccess, userLoggedIn, userSignOut } from "../slice/auth";
 import { ToastContainer } from "react-toastify";
 import ModalPoint from "../components/ModalPoint";
+import Loader from "../components/Loader";
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -45,9 +46,9 @@ const Layout = () => {
         theme="light"
       />
       <div className="">
-        <Suspense fallback={<div className="loader"></div>}>
+        <Suspense fallback={<Loader />}>
           <Navbar />
-          <div className="container pt-[146px]">
+          <div className="container pt-[146px] min-h-[96vh] pb-10">
             <Outlet />
           </div>
           <ModalPoint />

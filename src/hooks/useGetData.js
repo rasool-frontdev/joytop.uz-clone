@@ -7,7 +7,8 @@ import { toast } from "react-toastify";
 export const useGetData = (collectionName) => {
   const [data, setData] = useState([]);
   const collectionRef = collection(db, collectionName);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  // setLoading(true);
 
   useEffect(() => {
     // const getData = async () => {

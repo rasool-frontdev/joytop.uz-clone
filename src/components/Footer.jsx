@@ -8,7 +8,7 @@ const Footer = () => {
         <div
           className={`text-center w-full mt-[138px] ${
             location.pathname === "/register" ? "mt-[30px]" : "mt-[155px]"
-          }  bg-[#ff7e47] absolute bottom-0`}>
+          }  bg-[#ff7e47] mt-auto`}>
           <div className="flex justify-center">
             <img
               src="http://joytop.mbs-edu.uz/static/media/footerimg.bf623880.svg"

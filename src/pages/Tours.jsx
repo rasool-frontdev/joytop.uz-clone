@@ -1,6 +1,7 @@
-import { lazy } from "react";
+import { Suspense, lazy } from "react";
 import { useTranslation } from "react-i18next";
 import { useGetData } from "../hooks/useGetData";
+import Loader from "../components/Loader";
 
 const Helmet = lazy(() => import("../components/Helmet"));
 const CategoryPages = lazy(() => import("../components/CategoryPages"));
@@ -13,11 +14,13 @@ const Tours = () => {
   const { t, i18n } = useTranslation();
   return (
     <div className="px-4 py-0 xl:px-0">
-      <Helmet title={t("Tours")} />
-      <CategoryPages />
-      <FilterCard />
-      <CategoryTitle title="tours" />
-      <Cards data={data} />
+      <Suspense fallback={<Loader />}>
+        <Helmet title={t("Tours")} />
+        <CategoryPages />
+        <FilterCard />
+        <CategoryTitle title="tours" />
+        <Cards data={data} />
+      </Suspense>
     </div>
   );
 };

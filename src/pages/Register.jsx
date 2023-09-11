@@ -160,7 +160,7 @@ const Register = () => {
                 </label>
                 <input
                   type="text"
-                  className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
+                  className="input-active w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
                   placeholder={t("Enter code from SMS")}
                 />
                 <button
@@ -202,7 +202,7 @@ const Register = () => {
                   </label>
                   <input
                     type="text"
-                    className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
+                    className="input-active w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
                     placeholder={t("Name")}
                   />
                 </div>
@@ -214,21 +214,22 @@ const Register = () => {
                   </label>
                   <input
                     type="text"
-                    className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
+                    className="input-active w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
                     placeholder={t("Surname")}
                   />
                 </div>
                 <div className="mb-[8px] flex flex-col w-[300px]">
                   <label
                     htmlFor="phone"
-                    className="mb-[5px]  text-[#575757] text-4 font-normal">
+                    className="mb-[5px] text-[#575757] text-4 font-normal">
                     {t("Enter your phone number")}
                   </label>
-                  <div className="phone-input text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea] flex items-center h-[50px]">
+                  <div className="text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea] flex items-center h-[50px]">
                     <span className="flex items-center px-3 h-full text-[14px] bg-[#e5e5ea50]">
                       +998
                     </span>
                     <input
+                      id="phone"
                       type="phone"
                       className="w-[70%] font-normal px-[11px] py-[7px] text-[14px] outline-none"
                       placeholder={t("Enter your phone number")}
@@ -242,8 +243,9 @@ const Register = () => {
                     {t("Choose Password")}
                   </label>
                   <input
+                    id="password"
                     type="password"
-                    className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
+                    className="input-active w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
                     placeholder={t("Choose Password")}
                   />
                 </div>
@@ -255,7 +257,7 @@ const Register = () => {
                   </label>
                   <input
                     type="password"
-                    className="w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
+                    className="input-active w-full h-[50px] font-normal px-[11px] py-[7px] mb-4 text-[14px] text-[#575757] outline-[#575757] rounded-[6px] border-[1px] border-[#e5e5ea]"
                     placeholder={t("Verify Password")}
                   />
                 </div>

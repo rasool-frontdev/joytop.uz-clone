@@ -16,13 +16,13 @@
   margin: 0 auto;
   max-width: 1140px;
 }
-.register > input:hover,
-.register > input:focus {
+.input-active:hover,
+.input-active:focus {
   border: 1px solid #ff7e47;
   outline: none;
 }
 
-.phone-input input {
+.phone-input {
   border: none !important;
   outline: none !important;
 }
@@ -30,6 +30,24 @@
 .active-language {
   font-weight: 500;
   background: #eef8fe;
+}
+
+.username::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ff7e47;
+  transform: scaleX(0);
+  transform-origin: top left;
+  transition: transform 0.3s ease;
+}
+
+.username:hover::before {
+  transform: scaleX(1);
 }
 
 /* * LOADER STYLES */
@@ -41,6 +59,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: #fff;
 }
 
 .loader:before {
@@ -65,24 +84,6 @@
   left: 0;
   border-radius: 4px;
   animation: jump7456 0.5s linear infinite;
-}
-
-.username::before {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: #ff7e47;
-  transform: scaleX(0);
-  transform-origin: top left;
-  transition: transform 0.3s ease;
-}
-
-.username:hover::before {
-  transform: scaleX(1);
 }
 
 @keyframes jump7456 {
