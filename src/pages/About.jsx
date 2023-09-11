@@ -4,10 +4,17 @@ const About = () => {
   return (
     <div className="about-wrapper">
       <div>
-        <Link className="bg-[#F0F0F0] p-2 rounded-md">Back to Home</Link>
+        <Link className="bg-[#F0F0F0] p-2 rounded-md" to="/">
+          Back to Home
+        </Link>
         <h3 className="text-[#575757] text-[22px] font-bold mt-4">
           Зоны отдыха в горах — на сайте{" "}
-          <Link className="underline text-[#ff7e47]">Joytop.uz</Link>
+          <Link
+            className="underline text-[#ff7e47]"
+            target="_blank"
+            to="https://joytop.uz/">
+            Joytop.uz
+          </Link>
         </h3>
         <p className="mt-4 text-[#575757] leading-[23px]">
           In our country, you can easily find conditions for recreation with
