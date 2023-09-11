@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { BiChevronDown, BiX } from "react-icons/bi";
 import { useEffect, useState } from "react";
@@ -7,10 +7,11 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
 import { userSignOut } from "../slice/auth";
-import { useTranslation } from "react-i18next";
 import languages from "../locales/languages";
 import { setToggle } from "../slice/addPoint";
 import logo from "../assets/image/logo.svg";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -46,7 +47,7 @@ const Navbar = () => {
   }, []);
 
   const changeLanguageAction = (lang) => {
-    //set language as i18n
+    // set language as i18n
     i18n.changeLanguage(lang);
     localStorage.setItem("LANGUAGE", lang);
     setSelectedLang(lang);

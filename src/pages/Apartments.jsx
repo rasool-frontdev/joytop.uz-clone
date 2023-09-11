@@ -9,7 +9,7 @@ const CategoryTitle = lazy(() => import("../components/CategoryTitle"));
 const Cards = lazy(() => import("../components/Cards"));
 
 const Apartments = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: data } = useGetData("apartments");
   return (
     <div className="px-4 py-0 xl:px-0">

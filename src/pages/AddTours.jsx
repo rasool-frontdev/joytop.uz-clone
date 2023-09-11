@@ -10,7 +10,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { addDoc, collection } from "firebase/firestore";
 
 const AddTours = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const formRef = useRef();
   const uuid = crypto.randomUUID();

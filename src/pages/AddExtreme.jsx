@@ -11,7 +11,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const AddExtreme = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const formRef = useRef();
   const uuid = crypto.randomUUID();

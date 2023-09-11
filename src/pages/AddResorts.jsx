@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 // Initialization for ES Users
 
 const AddResorts = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const formRef = useRef();
   const uuid = crypto.randomUUID();

@@ -35,6 +35,7 @@ i18n
     fallbackLng: "uz", // use en if detected lng is not available
 
     keySeparator: false, // we do not use keys in form messages.welcome
+
     debug: false,
     interpolation: {
       escapeValue: false,

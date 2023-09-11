@@ -10,7 +10,7 @@ const CategoryTitle = lazy(() => import("../components/CategoryTitle"));
 const Cards = lazy(() => import("../components/Cards"));
 
 const Resorts = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: data } = useGetData("resorts");
   // const [villas, setVillas] = useState([]);
   // const [apartments, setApartments] = useState([]);
