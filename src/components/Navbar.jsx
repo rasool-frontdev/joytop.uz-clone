@@ -65,11 +65,12 @@ const Navbar = () => {
                 </NavLink>
                 <div className="flex items-center gap-6">
                   <NavLink to="/about">
-                    <button className="hidden xs:block px-4 h-[33px] text-[14px] border-[2px] border-[#ff7e47] rounded-[6px]  text-[#ff7e47]">
+                    <button
+                      className={`hidden xs:block px-4 h-[33px] text-[14px] border-[2px] border-[#ff7e47] rounded-[6px]  text-[#ff7e47] mr-[-32px]`}>
                       {t("About Us")}
                     </button>
                   </NavLink>
-                  <span className="relative tracking-[1px] cursor-default username ">
+                  <span className="relative tracking-[1px] cursor-default username ml-[32px]">
                     {userData?.firstName}
                   </span>
                   <div

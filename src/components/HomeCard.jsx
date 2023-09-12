@@ -1,8 +1,11 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import VanillaTilt from "vanilla-tilt";
 
 const HomeCard = ({ category }) => {
+  const { t, i18n } = useTranslation();
+
   useEffect(() => {
     VanillaTilt.init(document.querySelectorAll(".home-card"), {
       max: 5,
@@ -28,7 +31,7 @@ const HomeCard = ({ category }) => {
         <div
           className={`${category?.bg} bg-opacity-60 rounded-[10px] w-full h-full z-10 absolute top-0`}></div>
         <h1 className="text-[#fff] w-full z-20 text-[24px] md:text-[30px] font-medium text-center absolute top-[130px] md:top-[150px] lg:top-[180px] xl:top-[240px]">
-          {category?.title}
+          {t(`${category?.title}`)}
         </h1>
         <div className="absolute border-none w-[60px] md:w-[90px] transform -translate-x-1/2 -translate-y-1/2 border top-1/2 left-1/2 z-[99]">
           <img

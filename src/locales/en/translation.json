@@ -30,14 +30,14 @@
   "Successfully registered user": "Successfully registered user",
   "Successfully sign out": "Successfully sign out",
   "Something went wrong!": "Something went wrong!",
-  "Success sended code!": "Success sended code!",
+  "Successfully sended code!": "Successfully sended code!",
   "Price": "Price",
   "Post an ad": "Post an ad",
   "The number of photos should be more than 3": "The number of photos should be more than 3",
   "Each photo should be less than 3Mb": "Each photo should be less than 3Mb",
   "Please check your message!": "Please check your message!",
   "Please enter the correct phone number! Should be 9 characters": "Please enter the correct phone number! Should be 9 characters",
-  "Please enter password more than 5 characters!": "Please enter password more than 5 characters!",
-  "Password does not match. Please re-enter!": "Password does not match. Please re-enter!",
-  "Plese enter name or surname than 2 characters!": "Plese enter name or surname than 2 characters!"
+  "Please enter a password of more than 5 characters!": "Please enter a password of more than 5 characters!",
+  "The password does not match. Please re-enter!": "The password does not match. Please re-enter!",
+  "Please enter a name or surname than 2 characters!": "Please enter a name or surname than 2 characters!"
 }

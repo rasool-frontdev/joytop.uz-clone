@@ -59,15 +59,15 @@ const Register = () => {
     const confirmPassword = formRef?.current[4].value;
 
     if (firstName.length < 2 && lastName.length < 2) {
-      toast.warning(t("Plese enter name or surname than 2 characters!"));
+      toast.warning(t("Please enter a name or surname than 2 characters!"));
     } else if (phone.length !== 9) {
       toast.warning(
         t("Please enter the correct phone number! Should be 9 characters")
       );
     } else if (password.length < 5) {
-      toast.warning(t("Please enter password more than 5 characters!"));
+      toast.warning(t("Please enter a password of more than 5 characters!"));
     } else if (password !== confirmPassword) {
-      toast.warning(t("Password does not match. Please re-enter!"));
+      toast.warning(t("The password does not match. Please re-enter!"));
     } else {
       onChaptchVerify();
       setBtnDisabled(false);
@@ -91,7 +91,7 @@ const Register = () => {
           window.confirmationResult = confirmationResult;
           dispatch(registerUserFailure());
           setToggle(true);
-          toast.success(t("Success sended code!"));
+          toast.success(t("Successfully sended code!"));
           toast.warn(t("Please check your message!"));
         })
         .catch((error) => {

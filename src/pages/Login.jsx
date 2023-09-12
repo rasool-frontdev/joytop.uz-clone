@@ -60,7 +60,7 @@ const Login = () => {
         t("Please enter the correct phone number! Should be 9 characters")
       );
     } else if (password.length < 5) {
-      toast.warning(t("Please enter password more than 5 characters!"));
+      toast.warning(t("Please enter a password of more than 5 characters!"));
     } else {
       const formatPhoneSearch = "998" + phone;
       onChaptchVerify();
