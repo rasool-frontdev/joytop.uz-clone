@@ -22,7 +22,7 @@ export const homeCategories = [
   },
   {
     id: "apartments",
-    title: "Apartment",
+    title: "Apartments",
     img: apartmentsImg,
     bg: "bg-[#426bbf]",
     icon: apartmentsIcon,
